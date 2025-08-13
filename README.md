@@ -1,5 +1,5 @@
 #Gonsalge Almeida: Statistician • Financial Modeler • Data Scientist • Educator
-This repository contains the backend for my professional website, which you can visit here.
+This repository contains the backend for my professional website, which you can visit [here](https://gonsalgealmeidaTeach.github.io/).
 
 I am a Full-Time Lecturer in the Department of Mathematics, Applied Mathematics, and Statistics at Case Western Reserve University (CWRU), beginning Fall 2025. On my website, you will find information about my background, my résumé, and a curated selection of projects that integrate my research, teaching, and industry experience.
 
