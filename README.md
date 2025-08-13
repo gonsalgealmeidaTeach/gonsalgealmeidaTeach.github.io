@@ -1,7 +1,17 @@
-# GonsalgeAlmeida: Statistician/Financial Modeler/ Data Scientist
+#Gonsalge Almeida: Statistician • Financial Modeler • Data Scientist • Educator
+This repository contains the backend for my professional website, which you can visit here.
 
-The repository contains my website's backend, which you can find  [here](https://gonsalgealmeidaTeach.github.io/).
+I am a Full-Time Lecturer in the Department of Mathematics, Applied Mathematics, and Statistics at Case Western Reserve University (CWRU), beginning Fall 2025. On my website, you will find information about my background, my résumé, and a curated selection of projects that integrate my research, teaching, and industry experience.
 
-On the site, you can read about me, view or download my resume, see a selected list of projects I have done in TDI fellow, or see a list of my main projects from my Ph.D. in Applied Mathematics and Ph.D. in Statistics explorations. Also, I will add some projects applying ML models to solve real-world problems.
-The foundation of this site is a Jekyll theme called 'Hydejack.' At the request of the creators, I build locally and then push the site to GitHub; many of the created documents are not in this repository.
+Planned Content Includes:
+
+Course materials, schedules, and resources for the classes I teach at CWRU (including STAT 312/312R: Basic Statistics for Engineering and Science and MATH 201: Introduction to Linear Algebra for Applications).
+
+R programming assignments and examples tailored to the Montgomery, Runger, and Hubele textbook for STAT 312/312R.
+
+Selected research and applied projects from my Ph.D. in Applied Mathematics and Ph.D. in Statistics (followed), including financial modeling with Lévy processes and applications in data science and algorithmic trading.
+
+Additional projects applying machine learning and statistical models to solve real-world problems in finance, engineering, and business analytics.
+
+This site is built using the Hydejack Jekyll theme. Following the theme creator’s guidelines, I build locally and push the generated site to GitHub. As a result, many of the processed files are not visible in this repository.
 
