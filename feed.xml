@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="https://GonsalgeAlmeida.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://GonsalgeAlmeida.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2019-01-27T22:05:11-05:00</updated><id>https://GonsalgeAlmeida.github.io/</id><title type="html">Gonsalge Almeida</title><subtitle></subtitle><author><name>Gonsalge Almeida</name><email>gsnperera@gmail.com</email></author><entry><title type="html">Daily Routine of The Data Incubator</title><link href="https://GonsalgeAlmeida.github.io/2023/01/9/Daily-Routine-of-TDI/" rel="alternate" type="text/html" title="Daily Routine of The Data Incubator" /><published>2023-06-30T00:00:00-05:00</published><updated>2023-07-29T00:00:00-05:00</updated><id>https://GonsalgeAlmeida.github.io/2018/01/15/Daily-Routine-of-TDI</id><content type="html" xml:base="https://GonsalgeAlmeida.github.io/2023/01/9/Daily-Routine-of-TDI/">&lt;p&gt;When I began applying for The Data Incubator, I wasn’t sure what I was getting into. All I knew was
+that I wanted to be as skilled a data scientist as possible and TDI was a well respected training program.
+Overall, the program has been even better than I had anticipated. The program is relies heavily on 
+collaboration with the other members of the cohort. There are only a few scheduled events each day;
+the rest of the time is unstructured with only a framework of each week’s miniproject being offered as
+a guide. Everything else is learning from the other members of the cohort and the instructors on a more
+personal, one on one level.&lt;/p&gt;
+
+&lt;h2 id=&quot;first-lecture&quot;&gt;First: Lecture&lt;/h2&gt;
+
+&lt;p&gt;The day starts at 9:00am with a lecture. Each week, a different instructor is lecturing on a new aspect of 
+data Engineering: Data wrangling, advanced machine learning, sql, spark, cloud processing architecture, etc. The lecture lasts one hour and usually 
+goes through one or two prepared jupyter notebooks on specific topics of the week’s theme.&lt;/p&gt;
+
+&lt;h2 id=&quot;second-coding-challenge&quot;&gt;Second: Coding Challenge&lt;/h2&gt;
+
+&lt;p&gt;Immediately after lecture, a hackerrank coding challenge is sent out. Sometimes these are completed individually,
+usually with collaboration, and other times these are completed in pairs. I have found the partner coding to be especially helpful–
+people often develop different techniques that they default to, so partner coding can force you out of your comfortable
+habits and help you learn new methods. For example, when I was coding with my friend Vitya on a challenge, I wanted to use
+an elegant method that would give us the result without needing to go through the weeds of the problem, and he wanted to 
+take a brute force approach. After talking it over, we decided that my idea would fail given a specific input and that his idea
+would result in runtime errors. By finding middle ground between the two, we were able to successfully solve the challenge.&lt;/p&gt;
+
+&lt;h2 id=&quot;third-answer-review&quot;&gt;Third: Answer Review&lt;/h2&gt;
+
+&lt;p&gt;This is an unofficial part of the schedule, but after the coding challenge ends, most of the cohort goes over the 
+provided solution to the problem. Sometimes that is a short event because either the instructors’ solution matches
+yours or they will have one or two things different that you can easily understand and see how they were implemented.
+However, other times, this takes much longer– often the instructors’ will take a very abstract approach to solving
+these problems in the interest of decreasing computation time. In either event, going over the solutions is a very useful
+training technique, and I feel that my coding abilities have increased exponentially throughout the program in large 
+part due to these collaborative challenges.&lt;/p&gt;
+
+&lt;h2 id=&quot;fourth-unstructured&quot;&gt;Fourth: Unstructured&lt;/h2&gt;
+
+&lt;p&gt;The majority of the day is unstructured. On a given day, most members of the cohort will be using this time to work
+on the week’s mini-project while a few will be working on their capstone project. There is a lot of collaboration during
+this time, and I have learned an incredible amount from the other members of my cohort (I hope they can say the same).
+The mini-projects are usually more focused on real world applications than the coding challenges. We are provided with
+unclean data, data structured in a manner not conducive to what we need, or, in some cases, no data at all and we have
+to write scripts to scrape the data from websites. These projects are certainly also useful in building up my programming 
+skills, but they are also instrumental in teaching us how to think and code like industry data scientists; we are given
+many things to work on at once using realistic datasets to solve real-world problems with hard deadlines.&lt;/p&gt;
+
+&lt;p&gt;The capstone project is a single project designed by each participant which is built throughout the full length of the 
+course. In actuality, it seems that most of the cohort puts more emphasis on the mini-projects and coding training than
+the capstone because everyone has designed research projects previously and would prefer to learn as much new information
+as possible via the other aspects of the program. The capstone is more meant to demonstrate to recruiters the participant’s
+ability to design and complete a data science project largely independently than to be a particularly efficient learning method.&lt;/p&gt;
+
+&lt;h2 id=&quot;intermittent-partner-panels&quot;&gt;Intermittent: Partner Panels&lt;/h2&gt;
+
+&lt;p&gt;Every couple of days, the cohort attends a partner panel. This is where a few hiring managers of some companies partnered with
+The Data Incubator tell us a bit about their companies, explain what they’re looking for in a data scientist, and then answer
+any questions from the participants.&lt;/p&gt;
+
+&lt;h2 id=&quot;last-wrap-up&quot;&gt;Last: Wrap-up&lt;/h2&gt;
+
+&lt;p&gt;At the end of each day, the cohort gathers in a circle for a wrap-up session. Everyone discusses what they’ve learned that day,
+what they’ve been working on, and what they are stuck on. In academia, there is a common trend that people feel like they are not
+as qualified as their colleagues. I feel like this wrap-up has been very useful to everyone because with everyone being honest about
+what they’re working on and what they’re struggling with, it shows us that everyone is struggling to learn something. The wrap-up helps
+prevent anyone from feeling like they aren’t good enough because they are struggling and helps build a sense of comradarie among the
+participants because we are all working to improve ourselves as data scientists.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;I enjoy the routine and methodology of The Data Incubator. While there is a bit of structure in the lectures and the guidelines for the
+mini-project, the overall mentality is that we are all self-driven individuals here to learn as much as we can. Because of that, the
+instructors do not over-regulate our time in the program– this has been useful for us because it allows us to focus more on what we
+most need to improve. That and the collaborative nature of the program has really helped me improve my abilities as a data scientist/statistician.&lt;/p&gt;</content><author><name>Gonsalge Almeida</name><email>gsnperera@gmail.com</email></author><category term="tdi" /><category term="coding" /><summary type="html">When I began applying for The Data Incubator, I wasn’t sure what I was getting into. All I knew was that I wanted to be as skilled a data scientist as possible and TDI was a well respected training program. Overall, the program has been even better than I had anticipated. The program is relies heavily on collaboration with the other members of the cohort. There are only a few scheduled events each day; the rest of the time is unstructured with only a framework of each week’s miniproject being offered as a guide. Everything else is learning from the other members of the cohort and the instructors on a more personal, one on one level.</summary></entry></feed>
