@@ -1,4 +1,4 @@
-# GonsalgeAlmeida: Statistician • Financial Modeler • Data Scientist • Educator
+# Gonsalge Almeida: Statistician • Financial Modeler • Data Scientist • Educator
 
 
 This repository contains the backend for my professional website, which you can visit [here](https://gonsalgealmeidaTeach.github.io/).
