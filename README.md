@@ -9,11 +9,11 @@ Planned Content Includes:
 <ul>
 <li>Course materials, schedules, and resources for the classes I teach at CWRU (including STAT 312/312R: Basic Statistics for Engineering and Science and MATH 201: Introduction to Linear Algebra for Applications).<li>
 
-R programming assignments and examples tailored to the Montgomery, Runger, and Hubele textbook for STAT 312/312R.
+<li>R programming assignments and examples tailored to the Montgomery, Runger, and Hubele textbook for STAT 312/312R.<li>
 
-Selected research and applied projects from my Ph.D. in Applied Mathematics and Ph.D. in Statistics (followed), including financial modeling with Lévy processes and applications in data science and algorithmic trading.
+<li>Selected research and applied projects from my Ph.D. in Applied Mathematics and Ph.D. in Statistics (followed), including financial modeling with Lévy processes and applications in data science and algorithmic trading.<li>
 
-Additional projects applying machine learning and statistical models to solve real-world problems in finance, engineering, and business analytics.
+<li>Additional projects applying machine learning and statistical models to solve real-world problems in finance, engineering, and business analytics.<li>
 <ul>
 
 This site is built using the Hydejack Jekyll theme. Following the theme creator’s guidelines, I build locally and push the generated site to GitHub. As a result, many of the processed files are not visible in this repository.
