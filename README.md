@@ -1,1 +1,0 @@
-# gonsalgealmeidaTeach.github.io
