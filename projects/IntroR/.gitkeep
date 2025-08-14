@@ -1,1 +1,98 @@
 
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>IntroR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- Keep your existing styles -->
+  <link rel="stylesheet" type="text/css" href="../style/style.css">
+  <link rel="stylesheet" type="text/css" href="../style/title.css">
+  <link rel="stylesheet" type="text/css" href="../style/boxes.css">
+  <link rel="stylesheet" type="text/css" href="../style/tree.css">
+  <link rel="stylesheet" type="text/css" href="../style/footnote.css">
+
+  <!-- MathJax (optional) -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+  <style>
+    :root{
+      --fontTitle: Arial Black;
+      --fontBody:  Arial Black;
+      --fontBoxH:  Arial Black;
+      --fontBox:   Arial Black;
+
+      --BGoutside:          #FFFBFE;   /* Snow */
+      --BGbox1:             #58A4B0;   /* Cadet Blue */
+      --BGfootnoteR:        #333333;
+      --fontcolTitle:       #24272B;   /* Raisin Black */
+      --fontcolBody:        White;     /* default when not defined */
+      --fontcolBox:         #EEF8FF;   /* Alice Blue */
+      --fontcolLink:        #D1F5FF;   /* Light Cyan */
+      --fontcolLinkHover:   White;
+      --fontcolLinkActive:  #EEF8FF;   /* Alice Blue */
+      --fontcolLinkVisited: #8FE388;   /* Light Green */
+
+      --fsizeTitleH1: 40px;
+      --fsizeTitleH2: 20px;
+      --fsizeTitle:   18px;
+      --fsizeBoxH1:   25px;
+      --fsizeBox:     15px;
+      --opac:         .97;
+
+      /* legacy var used by tree.css (ok to keep) */
+      --fontTriangle: #24272B;
+      --BGopentree:   #3BBAAD;
+    }
+    .bigcontainer { background-image: url("bg-.jpg"); }
+  </style>
+</head>
+
+<body>
+  <div class="bigcontainer">
+    <div class="container">
+
+      <!-- Title -->
+      <div class="titleRone">
+        <h1>Intro to R / RStudio</h1>
+        Department of Mathematics, Applied Mathematics, and Statistics <br>
+        Case Western Reserve University
+      </div>
+
+      <!-- Getting Started -->
+      <div class="boxONE">
+        <h1>Getting Started</h1>
+        <ul>
+          <li><a href="IntroR-1.html">1. How to Install R &amp; RStudio</a></li>
+          <li><a href="IntroR-2.html">2. Getting Started with R</a></li>
+          <li><a href="IntroR-3.html">3. Packages and Working Directory</a></li>
+          <li><a href="IntroR-4.html">4. Three Ways to Load Data</a></li>
+          <li><a href="IntroR-5.html">5. Basic Calculations with Vectors</a></li>
+          <li><a href="IntroR-6.html">6. Plotting with Base Graphics</a></li>
+          <li><a href="IntroR-7.html">7. Matrix Manipulation</a></li>
+        </ul>
+      </div>
+
+      <!-- (Removed: General Tutorials) -->
+      <!-- (Removed: Cheat Sheets / Tree demo) -->
+
+      <!-- Footers -->
+      <div class="footnoteL"></div>
+
+      <div class="footnoteR">
+        <a href="/">Home</a>
+        &nbsp;
+        <a href="https://github.com/gonsalgealmeidaTeach/gonsalgealmeidaTeach.github.io/tree/main/projects/R">Git</a>
+      </div>
+
+      <div class="clr"></div>
+    </div>
+  </div>
+
+  <!-- (Removed tree JS since tree demo is deleted) -->
+</body>
+</html>
