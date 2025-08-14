@@ -1,1 +1,80 @@
 
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>IntroR-1: How to Install R & RStudio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- Your styles (unchanged) -->
+  <link rel="stylesheet" type="text/css" href="../style/style.css">
+  <link rel="stylesheet" type="text/css" href="../style/title.css">
+  <link rel="stylesheet" type="text/css" href="../style/boxes.css">
+  <link rel="stylesheet" type="text/css" href="../style/tree.css">
+  <link rel="stylesheet" type="text/css" href="../style/footnote.css">
+
+  <style>
+    :root{
+      --fontTitle: Arial Black; --fontBody: Arial Black; --fontBoxH: Arial Black; --fontBox: Arial Black;
+      --BGoutside:#FFFBFE; --BGbox1:#58A4B0; --BGfootnoteR:#333333; --fontcolTitle:#24272B; --fontcolBody:white;
+      --fontcolBox:#EEF8FF; --fontcolLink:#D1F5FF; --fontcolLinkHover:white; --fontcolLinkActive:#EEF8FF; --fontcolLinkVisited:#8FE388;
+      --fsizeTitleH1:40px; --fsizeTitleH2:20px; --fsizeTitle:18px; --fsizeBoxH1:25px; --fsizeBox:15px; --opac:.97;
+      --fontTriangle:#24272B; --BGopentree:#3BBAAD;
+    }
+    .bigcontainer { background-image: url("bg-.jpg"); }
+    pre, code { font-family: Consolas, Monaco, "Courier New", monospace; }
+  </style>
+</head>
+
+<body>
+  <div class="bigcontainer">
+    <div class="container">
+
+      <!-- Title -->
+      <div class="titleRone">
+        <h1>How to Install R &amp; RStudio</h1>
+        Department of Mathematics, Applied Mathematics, and Statistics<br>
+        Case Western Reserve University
+      </div>
+
+      <!-- Content -->
+      <div class="boxONE">
+        <h1>Steps</h1>
+        <ol>
+          <li><strong>Install R.</strong> Download the latest installer for your OS from CRAN and complete the setup.</li>
+          <li><strong>Install RStudio Desktop.</strong> Download the free RStudio (Posit) Desktop for your OS and install it.</li>
+          <li><strong>Open RStudio and verify versions.</strong>
+<pre><code>R.version.string
+R.version$platform
+</code></pre>
+          </li>
+          <li><strong>Install essential packages.</strong>
+<pre><code>install.packages(c("tidyverse","ggplot2","dplyr","readr","knitr","rmarkdown"))
+</code></pre>
+          </li>
+          <li><strong>Optional: test R Markdown.</strong>
+<pre><code>rmarkdown::draft("test", template = "html_document", package = "rmarkdown")
+</code></pre>
+          </li>
+        </ol>
+      </div>
+
+      <!-- Nav -->
+      <div class="boxONE">
+        <p><a href="index.html">← Back to IntroR</a> &nbsp; | &nbsp;
+           <a href="IntroR-2.html">Next: Getting Started with R »</a></p>
+      </div>
+
+      <!-- Footers -->
+      <div class="footnoteL"></div>
+      <div class="footnoteR">
+        <a href="/">Home</a>&nbsp;
+        <a href="https://github.com/gonsalgealmeidaTeach/gonsalgealmeidaTeach.github.io/tree/main/projects/R">Git</a>
+      </div>
+
+      <div class="clr"></div>
+    </div>
+  </div>
+</body>
+</html>
