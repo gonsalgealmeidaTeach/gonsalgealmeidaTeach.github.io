@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>IntroR-3: Packages and Working Directory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- Keep existing styles -->
+  <link rel="stylesheet" type="text/css" href="../style/style.css">
+  <link rel="stylesheet" type="text/css" href="../style/title.css">
+  <link rel="stylesheet" type="text/css" href="../style/boxes.css">
+  <link rel="stylesheet" type="text/css" href="../style/tree.css">
+  <link rel="stylesheet" type="text/css" href="../style/footnote.css">
+
+  <!-- (Optional) MathJax -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+  <style>
+    :root{
+      --fontTitle: Arial Black; --fontBody: Arial Black; --fontBoxH: Arial Black; --fontBox: Arial Black;
+      --BGoutside:#FFFBFE; --BGbox1:#58A4B0; --BGfootnoteR:#333333; --fontcolTitle:#24272B; --fontcolBody:white;
+      --fontcolBox:#EEF8FF; --fontcolLink:#D1F5FF; --fontcolLinkHover:white; --fontcolLinkActive:#EEF8FF; --fontcolLinkVisited:#8FE388;
+      --fsizeTitleH1:40px; --fsizeTitleH2:20px; --fsizeTitle:18px; --fsizeBoxH1:25px; --fsizeBox:15px; --opac:.97;
+      --fontTriangle:#24272B; --BGopentree:#3BBAAD;
+    }
+    .bigcontainer { background-image: url("bg-.jpg"); }
+    pre, code { font-family: Consolas, Monaco, "Courier New", monospace; }
+  </style>
+</head>
+
+<body>
+  <div class="bigcontainer">
+    <div class="container">
+
+      <!-- Title -->
+      <div class="titleRone">
+        <h1>Packages and Working Directory</h1>
+        Department of Mathematics, Applied Mathematics, and Statistics<br>
+        Case Western Reserve University
+      </div>
+
+      <!-- What are packages -->
+      <div class="boxONE">
+        <h1>1) What Are Packages?</h1>
+        <p style="text-align:justify;">
+          Packages extend base R with additional functions, datasets, and documentation. In STAT&nbsp;312/312R
+          we will use packages for data import, visualization, and inference. Typical examples include
+          <code>tidyverse</code>, <code>ggplot2</code>, <code>dplyr</code>, <code>readr</code>, and
+          <code>broom</code>.
+        </p>
+<pre><code># Install once per machine (Internet required)
+install.packages(c("tidyverse","broom","readr"))
+
+# Load each R session as needed
+library(tidyverse)   # loads ggplot2, dplyr, readr, etc.
+library(broom)       # tidying model output
+</code></pre>
+        <p class="fine">
+          If a function is not found (e.g., <code>could not find function</code>), confirm that the
+          package is both <em>installed</em> and <em>loaded</em>.
+        </p>
+      </div>
+
+      <!-- Updating and checking -->
+      <div class="boxONE">
+        <h1>2) Updating and Checking Packages</h1>
+<pre><code># Update installed packages (choose a CRAN mirror if prompted)
+update.packages(ask = FALSE)
+
+# List installed packages
+head(installed.packages()[, c("Package","Version")])
+
+# Load safely (returns TRUE/FALSE instead of stopping)
+require(ggplot2)   # similar to library(), but quieter
+</code></pre>
+        <p><em>Tip:</em> If you see errors about permissions, restart RStudio and try again, or run as administrator (Windows).</p>
+      </div>
+
+      <!-- Working directory -->
+      <div class="boxONE">
+        <h1>3) Working Directory</h1>
+        <p style="text-align:justify;">
+          The working directory (WD) is the folder where R reads and writes files by default. Set the WD to the
+          course folder that contains your data and scripts. Avoid spaces and special characters in folder names.
+        </p>
+<pre><code># Show current working directory
+getwd()
+
+# Set working directory (Windows example)
+setwd("C:/Users/yourname/Documents/STAT312")
+
+# macOS/Linux example (note forward slashes)
+setwd("/Users/yourname/Documents/STAT312")
+</code></pre>
+        <p><strong>Best practice:</strong> Use an RStudio <em>Project</em> for each course or assignment. Open the
+          <code>.Rproj</code> file and use relative paths; this removes the need to call <code>setwd()</code>.
+        </p>
+      </div>
+
+      <!-- Dataset link + example -->
+      <div class="boxONE">
+        <h1>4) Mini Example (with Download)</h1>
+        <p>
+          Download the sample data used below:
+          <a href="../datasets/thickness.csv" download>thickness.csv</a>
+          (<span class="fine">path in repo: <code>/projects/datasets/thickness.csv</code></span>).
+        </p>
+<pre><code>library(readr); library(dplyr); library(ggplot2)
+
+# If your script is in projects/R/, use the relative path:
+thick &lt;- read_csv("../datasets/thickness.csv")
+
+# If your working directory is the site root, use:
+# thick &lt;- read_csv("projects/datasets/thickness.csv")
+
+# Summaries
+thick %&gt;% summarize(n = n(),
+                    mean = mean(value),
+                    sd = sd(value),
+                    q25 = quantile(value, .25),
+                    median = median(value),
+                    q75 = quantile(value, .75))
+
+# Plot
+ggplot(thick, aes(x = value)) +
+  geom_histogram(bins = 12) +
+  labs(x = "Thickness (mm)", y = "Count",
+       title = "Process Thickness Distribution")
+</code></pre>
+        <p class="fine">This mirrors the early chapters of <em>Engineering Statistics</em>:
+           compute center/spread and visualize variability.</p>
+      </div>
+
+      <!-- Navigation -->
+      <div class="boxONE">
+        <p>
+          <a href="index.html">← Back to IntroR</a> &nbsp; | &nbsp;
+          <a href="IntroR-2.html">« Previous: Getting Started with R</a> &nbsp; | &nbsp;
+          <a href="IntroR-4.html">Next: Three Ways to Load Data »</a>
+        </p>
+      </div>
+
+      <!-- Footers -->
+      <div class="footnoteL"></div>
+      <div class="footnoteR">
+        <a href="/">Home</a>
+        &nbsp;
+        <a href="https://github.com/gonsalgealmeidaTeach/gonsalgealmeidaTeach.github.io/tree/main/projects/R">Git</a>
+      </div>
+
+      <div class="clr"></div>
+    </div>
+  </div>
+</body>
+</html>
