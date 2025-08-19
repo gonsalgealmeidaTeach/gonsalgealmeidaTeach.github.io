@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>IntroR · 4. Importing Data</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../style/simple.css">
+</head>
+<body>
+<div class="container">
+  <header class="title">
+    <h1>4. Importing Data</h1>
+    <div class="dept">CSV · Excel · clipboard</div>
+  </header>
+
+  <section class="panel">
+    <h1>CSV</h1>
+    <pre><code>library(readr)
+df &lt;- read_csv("thickness.csv")      # or another csv in your folder
+glimpse(df)</code></pre>
+  </section>
+
+  <section class="panel">
+    <h1>Excel</h1>
+    <pre><code>library(readxl)
+sheet_names("myfile.xlsx")
+ex &lt;- read_excel("myfile.xlsx", sheet = 1)
+head(ex)</code></pre>
+  </section>
+
+  <section class="panel">
+    <h1>Clipboard (Windows)</h1>
+    <pre><code>clip_df &lt;- read.table("clipboard", header = TRUE, sep = "\t")
+head(clip_df)</code></pre>
+  </section>
+
+  <section class="panel">
+    <h1>Try it</h1>
+    <ul>
+      <li>Import <code>thickness.csv</code> from <code>/projects/datasets/</code> and compute <code>mean</code> and <code>sd</code> of the response.</li>
+      <li>Save a subset with <code>write_csv()</code>.</li>
+    </ul>
+  </section>
+
+  <div class="nav-row">
+    <a href="./03-packages-working-dir.html">◀ Prev</a>
+    <a href="./05-vectors-matrices.html">Next ▶</a>
+  </div>
+
+  <footer class="footer">
+    <span><a href="../index.html">IntroR home</a></span>
+    <span>© G. Almeida</span>
+  </footer>
+</div>
+</body>
+</html>
