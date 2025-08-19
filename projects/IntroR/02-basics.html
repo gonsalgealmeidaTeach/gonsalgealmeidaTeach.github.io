@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>IntroR · 2. R basics: console, objects, vectors</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../style/simple.css">
+</head>
+<body>
+<div class="container">
+  <header class="title">
+    <h1>2. R basics: console, objects, vectors</h1>
+    <div class="dept">CWRU · STAT&nbsp;312/312R</div>
+  </header>
+
+  <section class="panel">
+    <h1>Console &amp; arithmetic</h1>
+    <pre><code>2 + 3
+10 / 4
+sqrt(16)
+log(10, base = 10)</code></pre>
+  </section>
+
+  <section class="panel">
+    <h1>Objects &amp; assignment</h1>
+    <pre><code>x &lt;- 5
+y &lt;- 2 * x
+y
+class(y)</code></pre>
+  </section>
+
+  <section class="panel">
+    <h1>Vectors</h1>
+    <pre><code>v &lt;- c(2, 4, 6, 8)
+v + 1
+mean(v); sd(v)</code></pre>
+  </section>
+
+  <section class="panel">
+    <h1>Try it</h1>
+    <ul>
+      <li>Create a vector with temperatures in °C and convert to °F using vectorized math.</li>
+      <li>Compute its mean and standard deviation.</li>
+    </ul>
+  </section>
+
+  <div class="nav-row">
+    <a href="./01-install.html">◀ Prev</a>
+    <a href="./03-packages-working-dir.html">Next ▶</a>
+  </div>
+
+  <footer class="footer">
+    <span><a href="../index.html">IntroR home</a></span>
+    <span>© G. Almeida</span>
+  </footer>
+</div>
+</body>
+</html>
