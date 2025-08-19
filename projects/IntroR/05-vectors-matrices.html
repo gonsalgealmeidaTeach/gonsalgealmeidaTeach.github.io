@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>IntroR · 5. Vectors & Matrices</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../style/simple.css">
+</head>
+<body>
+<div class="container">
+  <header class="title">
+    <h1>5. Vectors &amp; Matrices</h1>
+    <div class="dept">Element-wise ops, summary stats, matrix algebra</div>
+  </header>
+
+  <section class="panel">
+    <h1>Vectors</h1>
+    <pre><code>x &lt;- c(1, 3, 5, 7)
+y &lt;- c(2, 4, 6, 8)
+x + y
+sum(x); mean(x); sd(x)</code></pre>
+  </section>
+
+  <section class="panel">
+    <h1>Matrices</h1>
+    <pre><code>M &lt;- matrix(1:9, nrow = 3, byrow = TRUE)
+M
+t(M)              # transpose
+M %*% t(M)        # matrix multiply</code></pre>
+  </section>
+
+  <section class="panel">
+    <h1>Try it</h1>
+    <ul>
+      <li>Create a 3×3 matrix and compute its determinant with <code>det()</code>.</li>
+      <li>Compute column means with <code>colMeans()</code>.</li>
+    </ul>
+  </section>
+
+  <div class="nav-row">
+    <a href="./04-data-import.html">◀ Prev</a>
+    <a href="./06-base-plots.html">Next ▶</a>
+  </div>
+
+  <footer class="footer">
+    <span><a href="../index.html">IntroR home</a></span>
+    <span>© G. Almeida</span>
+  </footer>
+</div>
+</body>
+</html>
