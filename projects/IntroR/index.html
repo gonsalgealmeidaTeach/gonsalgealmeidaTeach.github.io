@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
   <link rel="icon" type="image/png" href="favicon.png">
-
   <head>
     <title>IntroR</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- keep existing IntroR styles -->
+    <!-- Keep your IntroR styles -->
     <link rel="stylesheet" type="text/css" href="../style/style.css">
     <link rel="stylesheet" type="text/css" href="../style/title.css">
     <link rel="stylesheet" type="text/css" href="../style/boxes.css">
@@ -21,23 +20,21 @@
 
     <style>
       :root{
-        /* fonts */
         --fontTitle: Arial Black;
         --fontBody:  Arial Black;
         --fontBoxH:  Arial Black;
         --fontBox:   Arial Black;
 
-        /* colors */
-        --BGoutside:          #FFFBFE;   /* Snow */
-        --BGbox1:             #58A4B0;   /* Cadet Blue */
+        --BGoutside:          #FFFBFE;
+        --BGbox1:             #58A4B0;
         --BGfootnoteR:        #333333;
-        --fontcolTitle:       #24272B;   /* Raisin Black */
+        --fontcolTitle:       #24272B;
         --fontcolBody:        White;
-        --fontcolBox:         #EEF8FF;   /* Alice Blue */
-        --fontcolLink:        #D1F5FF;   /* Light Cyan */
+        --fontcolBox:         #EEF8FF;
+        --fontcolLink:        #D1F5FF;
         --fontcolLinkHover:   White;
-        --fontcolLinkActive:  #EEF8FF;   /* Alice Blue */
-        --fontcolLinkVisited: #8FE388;   /* Light Green */
+        --fontcolLinkActive:  #EEF8FF;
+        --fontcolLinkVisited: #8FE388;
 
         --fsizeTitleH1: 40px;
         --fsizeTitleH2: 20px;
@@ -46,11 +43,13 @@
         --fsizeBox:     15px;
         --opac:         .97;
 
-        /* tree (kept for consistency; not used on this page) */
         --fontTriangle: #24272B;
         --BGopentree:   #3BBAAD;
       }
       .bigcontainer { background-image: url("bg-.jpg"); }
+      /* ensure links are clickable */
+      .boxONE { position: relative; z-index: 1; }
+      .boxONE a { pointer-events: auto; }
     </style>
   </head>
 
@@ -58,7 +57,7 @@
     <div class="bigcontainer">
       <div class="container">
 
-        <!-- page title / affiliation -->
+        <!-- Title -->
         <div class="titleRone">
           <h1>Intro to R / RStudio</h1>
           Department of Mathematics, Applied Mathematics, and Statistics<br>
@@ -68,37 +67,45 @@
         <!-- Getting Started -->
         <div class="boxONE">
           <h1>Getting Started</h1>
-          <ul>
+          <ul class="intro-links">
             <li><a href="IntroR-1.html">1. How to Install R / RStudio</a></li>
-            <li><a href="IntroR-2.html">2. Getting Started with R</a></li>
-            <li><a href="IntroR-3.html">3. Packages and Working Directory</a></li>
-            <li><a href="IntroR-4.html">4. Three Ways to Load Data</a></li>
-            <li><a href="IntroR-5.html">5. Basic Calculations with Vectors</a></li>
-            <li><a href="IntroR-6.html">6. Plotting with Base Graphics</a></li>
-            <li><a href="IntroR-7.html">7. Matrix Manipulation</a></li>
+            <li><a href="introR-2.html">2. Getting Started with R</a></li>
+            <li><a href="introR-3.html">3. Packages and Working Directory</a></li>
+            <li><a href="introR-4.html">4. Three Ways to Load Data</a></li>
+            <li><a href="introR-5.html">5. Basic Calculations with Vectors</a></li>
+            <li><a href="introR-6.html">6. Plotting with Base Graphics</a></li>
+            <li><a href="introR-7.html">7. Matrix Manipulation</a></li>
           </ul>
         </div>
 
-        <!-- Reproducible workflows -->
+        <!-- (Optional) R Markdown series if you plan to use them -->
+        <!--
         <div class="boxONE">
           <h1>Reproducible Workflows</h1>
           <ul>
-            <li><a href="IntroR-rmarkdown.html">R&nbsp;Markdown: code + narrative + output</a></li>
+            <li><a href="introR-rmd1.html">R Markdown — Part 1</a></li>
+            <li><a href="introR-rmd2.html">R Markdown — Part 2</a></li>
+            <li><a href="introR-rmd3.html">R Markdown — Part 3</a></li>
+            <li><a href="introR-rmd4.html">R Markdown — Part 4</a></li>
+            <li><a href="introR-rmd5.html">R Markdown — Part 5</a></li>
+            <li><a href="introR-rmd6.html">R Markdown — Part 6</a></li>
           </ul>
         </div>
+        -->
 
-        <!-- Datasets used in examples -->
+        <!-- Datasets -->
         <div class="boxONE">
           <h1>Datasets Used in Examples</h1>
-          <p>Download sample data referenced across modules:</p>
+          <p>Download the sample data referenced across modules:</p>
           <ul>
-            <li><a href="../datasets/thickness.csv" download>thickness.csv</a>
+            <li>
+              <a href="../datasets/thickness.csv" download>thickness.csv</a>
               <span class="fine">(path: <code>/projects/datasets/thickness.csv</code>)</span>
             </li>
           </ul>
         </div>
 
-        <!-- footer links -->
+        <!-- Footer -->
         <div class="footnoteL"></div>
         <div class="footnoteR">
           <a href="/">Home</a>
@@ -110,12 +117,13 @@
       </div>
     </div>
 
-    <!-- Tree JS kept (no tree on this page, but harmless) -->
+    <!-- No tree used here; script left harmlessly -->
     <script>
       var toggler = document.querySelectorAll(".rootTree");
       Array.from(toggler).forEach(item => {
         item.addEventListener("click", () => {
-          item.parentElement.querySelector(".children").classList.toggle("active");
+          var child = item.parentElement.querySelector(".children");
+          if (child) { child.classList.toggle("active"); }
           item.classList.toggle("rootTree-down");
         });
       });
