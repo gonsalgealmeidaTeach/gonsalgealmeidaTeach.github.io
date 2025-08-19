@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>IntroR · 6. Base Plots</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../style/simple.css">
+</head>
+<body>
+<div class="container">
+  <header class="title">
+    <h1>6. Base Plots</h1>
+    <div class="dept">histogram · boxplot · scatter · simple formatting</div>
+  </header>
+
+  <section class="panel">
+    <h1>Using built-in datasets</h1>
+    <pre><code>data(mtcars)
+hist(mtcars$mpg, main = "MPG distribution", xlab = "mpg")
+boxplot(mpg ~ cyl, data = mtcars, xlab = "cylinders", ylab = "mpg")
+plot(mtcars$wt, mtcars$mpg, xlab = "weight (1000 lb)", ylab = "mpg", pch = 19)</code></pre>
+  </section>
+
+  <section class="panel">
+    <h1>Try it</h1>
+    <ul>
+      <li>Use <code>iris</code> to make a histogram of <code>Sepal.Length</code>.</li>
+      <li>Create a scatter plot of <code>wt</code> vs <code>mpg</code> with a title and axis labels.</li>
+    </ul>
+  </section>
+
+  <div class="nav-row">
+    <a href="./05-vectors-matrices.html">◀ Prev</a>
+    <a href="../index.html">Finish ▶ IntroR home</a>
+  </div>
+
+  <footer class="footer">
+    <span><a href="../index.html">IntroR home</a></span>
+    <span>© G. Almeida</span>
+  </footer>
+</div>
+</body>
+</html>
