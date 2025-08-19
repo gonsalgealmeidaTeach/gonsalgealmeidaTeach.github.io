@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>IntroR · 3. Packages & Working Directory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../style/simple.css">
+</head>
+<body>
+<div class="container">
+  <header class="title">
+    <h1>3. Packages &amp; Working Directory</h1>
+    <div class="dept">CWRU · STAT&nbsp;312/312R</div>
+  </header>
+
+  <section class="panel">
+    <h1>Install &amp; load packages</h1>
+    <pre><code>install.packages(c("readr","readxl","ggplot2","dplyr"))
+library(readr); library(readxl); library(ggplot2); library(dplyr)</code></pre>
+  </section>
+
+  <section class="panel">
+    <h1>Working directory</h1>
+    <pre><code>getwd()        # where R reads/writes by default
+#setwd("C:/Users/you/Documents/stat312")  # set only when needed</code></pre>
+  </section>
+
+  <section class="panel">
+    <h1>Try it</h1>
+    <ul>
+      <li>Install <code>dplyr</code>, load it, and run <code>packageVersion("dplyr")</code>.</li>
+      <li>Create a folder for course work and set it as the working directory.</li>
+    </ul>
+  </section>
+
+  <div class="nav-row">
+    <a href="./02-basics.html">◀ Prev</a>
+    <a href="./04-data-import.html">Next ▶</a>
+  </div>
+
+  <footer class="footer">
+    <span><a href="../index.html">IntroR home</a></span>
+    <span>© G. Almeida</span>
+  </footer>
+</div>
+</body>
+</html>
