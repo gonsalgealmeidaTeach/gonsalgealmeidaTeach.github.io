@@ -3,103 +3,93 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>R Examples | Gonsalge Almeida</title>
+  <title>R Cheat Sheets & References | Gonsalge Almeida</title>
   <link rel="stylesheet" href="/assets/css/hydejack-7.5.0.css">
   <style>
-    .examples h3 { margin-top: 0.25rem; }
-    .examples ul { margin: .25rem 0 1rem; }
-    .examples li { line-height: 1.45; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 1.25rem; }
+    .card { background: #ffffffcc; border-radius: 12px; padding: 1rem 1.25rem; box-shadow: 0 4px 14px rgba(0,0,0,.05); }
+    .card h3 { margin:.25rem 0 .5rem; font-size: 1.05rem; }
+    .card ul { margin: 0; padding-left: 1rem; }
+    .card li { line-height: 1.5; margin:.15rem 0; }
+    .small { font-size:.9rem; opacity:.85 }
   </style>
 </head>
 <body>
 <main id="_main" class="content fade-in" role="main" data-color="#2874A6" data-image="/assets/img/TouchWorld.jpg" data-overlay>
   <article class="page" role="article">
     <header>
-      <h1 class="page-title">R Examples</h1>
+      <h1 class="page-title">R Cheat Sheets & References</h1>
       <p class="message">
-        Short, runnable examples for <strong>STAT 312/312R</strong> and <strong>R supplements</strong>.
-        Everything here is original and open. Text © Gonsalge Almeida (CC BY 4.0). Code MIT-licensed.
+        Quick references used in <strong>STAT 312/312R</strong> and my R supplements. All files below live in
+        <code>/projects/R/</code> and open in a new tab.
       </p>
     </header>
 
-    <div class="examples">
-      <div class="columns">
-        <div class="column column-1-3">
-          <h3>Basic Calculations</h3>
-          <ul>
-            <li><a href="/projects/R-examples/basics/basics.html">Basics</a></li>
-            <li><a href="/projects/R-examples/basics/vectors-matrices.html">Vectors &amp; Matrices</a></li>
-            <li><a href="/projects/R-examples/basics/functions.html">Functions &amp; apply</a></li>
-          </ul>
+    <div class="grid">
 
-          <h3>dplyr / tidyverse</h3>
-          <ul>
-            <li><a href="/projects/R-examples/dplyr/cheatsheet.html">Cheat Sheet (notes)</a></li>
-            <li><a href="/projects/R-examples/dplyr/wrangling.html">Data Wrangling</a></li>
-          </ul>
+      <section class="card">
+        <h3>Core R</h3>
+        <ul>
+          <li><a target="_blank" rel="noopener" href="./Rcheetsheets.pdf">R Cheatsheets (overview)</a></li>
+          <li><a target="_blank" rel="noopener" href="./overviewR.pdf">R Overview</a></li>
+          <li><a target="_blank" rel="noopener" href="./base-r.pdf">Base R quick reference</a></li>
+          <li><a target="_blank" rel="noopener" href="./syntax.pdf">R syntax quick guide</a></li>
+        </ul>
+      </section>
 
-          <h3>R Markdown</h3>
-          <ul>
-            <li><a href="/projects/R-examples/rmarkdown/basics.html">Basics &amp; knitting</a></li>
-            <li><a href="/projects/R-examples/rmarkdown/formatting.html">Code + narrative</a></li>
-          </ul>
-        </div>
+      <section class="card">
+        <h3>Data Wrangling & Tables</h3>
+        <ul>
+          <li><a target="_blank" rel="noopener" href="./datatable.pdf">data.table cheatsheet</a></li>
+          <li><a target="_blank" rel="noopener" href="./teachR.pdf">teachR notes (tables/workflows)</a></li>
+        </ul>
+      </section>
 
-        <div class="column column-1-3">
-          <h3>Statistics</h3>
-          <ul>
-            <li><a href="/projects/R-examples/stats/eda.html">EDA: hist, boxplot, scatter</a></li>
-            <li><a href="/projects/R-examples/stats/estimation.html">Point &amp; Interval Estimation</a></li>
-            <li><a href="/projects/R-examples/stats/hypothesis.html">Hypothesis Tests</a></li>
-          </ul>
+      <section class="card">
+        <h3>Visualization</h3>
+        <ul>
+          <li><a target="_blank" rel="noopener" href="./data-visualization.pdf">Data visualization in R</a></li>
+        </ul>
+      </section>
 
-          <h3>Base Plots</h3>
-          <ul>
-            <li><a href="/projects/R-examples/baseplots/hist-boxplot.html">Hist &amp; Boxplot</a></li>
-            <li><a href="/projects/R-examples/baseplots/scatter.html">Scatter with groups</a></li>
-          </ul>
+      <section class="card">
+        <h3>Modeling & ML</h3>
+        <ul>
+          <li><a target="_blank" rel="noopener" href="./mlr.pdf">mlr (Machine Learning in R)</a></li>
+        </ul>
+      </section>
 
-          <h3>ggplot2</h3>
-          <ul>
-            <li><a href="/projects/R-examples/ggplot2/quickstart.html">Quickstart</a></li>
-            <li><a href="/projects/R-examples/ggplot2/facets-themes.html">Facets &amp; Themes</a></li>
-            <li><a href="/projects/R-examples/ggplot2/annotations.html">Annotations &amp; scales</a></li>
-          </ul>
-        </div>
+      <section class="card">
+        <h3>Probability, Distributions & Time Series</h3>
+        <ul>
+          <li><a target="_blank" rel="noopener" href="./distr6.pdf">distr6 (distributions)</a></li>
+          <li><a target="_blank" rel="noopener" href="./time-series.pdf">Time series cheatsheet</a></li>
+          <li><a target="_blank" rel="noopener" href="./randomizr.pdf">randomizr (experiments)</a></li>
+        </ul>
+      </section>
 
-        <div class="column column-1-3">
-          <h3>Probability &amp; Time Series</h3>
-          <ul>
-            <li><a href="/projects/R-examples/prob/distributions.html">Distributions &amp; RNG</a></li>
-            <li><a href="/projects/R-examples/ts/ts-basics.html">Time Series Basics</a></li>
-            <li><a href="/projects/R-examples/ts/arma.html">ARMA simulation</a></li>
-          </ul>
+      <section class="card">
+        <h3>Specialized / Misc</h3>
+        <ul>
+          <li><a target="_blank" rel="noopener" href="./rphylopic.pdf">rphylopic</a></li>
+          <li><a target="_blank" rel="noopener" href="./vivainsights_r.pdf">Microsoft Viva Insights (R)</a></li>
+          <li><a target="_blank" rel="noopener" href="./vivainsights_py.pdf">Microsoft Viva Insights (Python)</a></li>
+          <li><a target="_blank" rel="noopener" href="./git-github.pdf">Git &amp; GitHub quick guide</a></li>
+        </ul>
+      </section>
 
-          <h3>Finance (Applied)</h3>
-          <ul>
-            <li><a href="/projects/R-examples/finance/returns-risk.html">Returns &amp; Risk</a></li>
-            <li><a href="/projects/R-examples/finance/portfolio-toy.html">Toy Portfolio</a></li>
-          </ul>
-
-          <h3>Resources</h3>
-          <ul>
-            <li><a href="https://cran.r-project.org/manuals.html" target="_blank" rel="noopener">R Manuals (CRAN)</a></li>
-            <li><a href="https://posit.co/resources/cheatsheets/" target="_blank" rel="noopener">Posit Cheatsheets</a></li>
-            <li><a href="/projects/IntroR/index.html">Intro to R / RStudio</a></li>
-          </ul>
-        </div>
-      </div>
     </div>
 
-    <p class="fine">
-      Datasets used across examples include built-ins (<code>mtcars</code>, <code>iris</code>) and course files
-      such as <a href="/projects/datasets/thickness.csv">thickness.csv</a>.
+    <p class="small" style="margin-top:1.25rem">
+      Also see: <a href="/projects/IntroR/index.html">Intro to R / RStudio modules</a> &nbsp;|&nbsp;
+      <a href="/projects/R-examples/index.html">R Examples (runnable)</a>
     </p>
   </article>
 
   <footer role="contentinfo">
     <hr/>
     <p class="fine">Text © Gonsalge Almeida (CC BY 4.0). Code MIT-licensed.</p>
+    <p><a class="btn" href="/projects/">Back to Projects</a></p>
   </footer>
 </main>
 </body>
