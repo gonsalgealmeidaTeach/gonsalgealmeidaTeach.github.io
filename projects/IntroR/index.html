@@ -1,82 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Intro to R / RStudio | Gonsalge Almeida</title>
-
+  <link rel="stylesheet" href="/assets/css/hydejack-7.5.0.css" />
   <style>
-    :root{
-      --bg:#f7f6f8; --panel:#5aa1ab; --ink:#222; --ink-soft:#eef8ff;
-      --maxw:1100px; --radius:10px;
-    }
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
-      font-family:Segoe UI, Roboto, Helvetica, Arial, sans-serif; line-height:1.55}
-    .wrap{max-width:var(--maxw);margin:2.25rem auto;padding:0 1rem}
-    h1{font-size:2.4rem;text-align:center;margin:.25rem 0 .75rem}
-    .sub{color:#555;text-align:center;margin-bottom:1.25rem}
-    .panel{background:var(--panel);color:var(--ink-soft);padding:1.25rem 1.25rem 1rem;
-      border-radius:var(--radius);margin:0 0 1.25rem}
-    .panel h2{margin:.2rem 0 0.6rem;font-size:1.35rem}
-    .panel ul{margin:.25rem 0 .5rem 1.2rem}
-    .panel li{margin:.3rem 0}
-    a{color:#fff;text-decoration:underline}
-    .fine{opacity:.85}
-    .cta{display:flex;gap:.75rem;justify-content:space-between;align-items:center;
-      background:#2e2e2e;color:#fff;border-radius:8px;padding:.85rem 1rem;margin-top:1rem}
-    .cta a{color:#fff;text-decoration:none;border-bottom:1px dotted rgba(255,255,255,.5)}
-    .chips{display:inline-block;background:rgba(255,255,255,.2);padding:.05rem .45rem;
-      border-radius:6px;margin:0 .2rem}
+    .wrap { max-width: 60rem; margin: 0 auto; padding: 1.25rem; }
+    .panel { background:#5699a7; color:#fff; border-radius:.5rem; padding:1.25rem 1.5rem; }
+    .panel + .panel { margin-top:1rem; }
+    .panel a { color:#eaf6ff; border-bottom:1px solid rgba(255,255,255,.35); }
+    .panel a:hover { color:#fff; border-color:#fff; }
+    .header { text-align:center; margin:1rem 0 1.25rem; }
+    .header h1 { margin:.25rem 0 .5rem; }
+    .header p { margin:0; color:#666; }
+    .bar { display:flex; justify-content:space-between; align-items:center; gap:.75rem;
+           background:#333; color:#fff; border-radius:.5rem; padding:.75rem 1rem; margin:1rem 0 2rem; }
+    .bar a { color:#d6ecff; }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>Intro to R / RStudio</h1>
-    <div class="sub">
-      <div>Department of Mathematics, Applied Mathematics, and Statistics</div>
-      <div>Case Western Reserve University</div>
-      <div style="margin-top:.35rem" class="fine">
-        Everything here is original and open. Text © Gonsalge Almeida (CC BY 4.0). Code samples MIT-licensed.
+<main class="content fade-in" role="main" data-color="#2874A6" data-image="/assets/img/TouchWorld.jpg" data-overlay>
+  <article class="page" role="article">
+    <div class="wrap">
+      <header class="header">
+        <h1 class="page-title">Intro to R / RStudio</h1>
+        <p>Department of Mathematics, Applied Mathematics, and Statistics — Case Western Reserve University</p>
+        <p style="margin-top:.35rem;">Everything here is original and open. Text © Gonsalge Almeida (CC BY 4.0). Code samples MIT-licensed.</p>
+      </header>
+
+      <!-- Getting Started -->
+      <section class="panel">
+        <h2>Getting Started</h2>
+        <ol>
+          <li><a href="/projects/IntroR/introR-1.html">Install R, RStudio, and first checks</a></li>
+          <li><a href="/projects/IntroR/introR-2.html">R basics: console, objects, vectors</a></li>
+          <li><a href="/projects/IntroR/introR-3.html">Packages and working directory</a></li>
+          <li><a href="/projects/IntroR/introR-4.html">Importing data (CSV, Excel, clipboard)</a></li>
+          <li><a href="/projects/IntroR/introR-5.html">Vectors &amp; matrices (with small exercises)</a></li>
+          <li><a href="/projects/IntroR/introR-6.html">Base plots: hist, boxplot, scatter</a></li>
+          <li><a href="/projects/IntroR/introR-7.html">Matrix manipulation</a></li>
+        </ol>
+        <p style="margin:.5rem 0 0;">
+          Datasets used here include built-in <code>mtcars</code>, <code>iris</code>, and an optional
+          <a href="/projects/datasets/thickness.csv">thickness.csv</a>.
+        </p>
+      </section>
+
+      <!-- Next Steps -->
+      <section class="panel">
+        <h2>Next Steps (you can add later)</h2>
+        <ol start="8">
+          <li><a href="/projects/IntroR/introR-rmd1.html">Reproducible reports with R&nbsp;Markdown (basics)</a></li>
+          <li><a href="/projects/IntroR/introR-rmd2.html">Knitting, parameters, and exporting</a></li>
+          <li><a href="/projects/IntroR/introR-rmd3.html">Code + narrative for labs</a></li>
+          <li>(placeholder) ggplot2 quickstart</li>
+          <li>(placeholder) dplyr verbs for wrangling</li>
+          <li>(placeholder) Descriptive statistics for engineering</li>
+        </ol>
+        <p>Create new pages by duplicating any module and adjusting the title and content.</p>
+      </section>
+
+      <!-- bottom bar -->
+      <div class="bar">
+        <a href="/projects/">&larr; Back to Projects</a>
+        <a href="https://github.com/gonsalgealmeidateach/gonsalgealmeidateach.github.io/tree/main/projects/IntroR" target="_blank" rel="noopener">Git folder</a>
       </div>
     </div>
-
-    <!-- Getting Started -->
-    <section class="panel">
-      <h2>Getting Started</h2>
-      <ul>
-        <li><a href="introR-1.html">1. Install R, RStudio, and first checks</a></li>
-        <li><a href="introR-2.html">2. R basics: console, objects, vectors</a></li>
-        <li><a href="introR-3.html">3. Packages and working directory</a></li>
-        <li><a href="introR-4.html">4. Importing data (CSV, Excel, clipboard)</a></li>
-        <li><a href="introR-5.html">5. Vectors &amp; matrices (with small exercises)</a></li>
-        <li><a href="introR-6.html">6. Base plots: hist, boxplot, scatter</a></li>
-        <li><a href="introR-7.html">7. Matrix manipulation</a></li>
-      </ul>
-      <div class="fine">
-        Datasets used here include built-in <span class="chips">mtcars</span>,
-        <span class="chips">iris</span>, and an optional <a href="../datasets/thickness.csv">thickness.csv</a>.
-      </div>
-    </section>
-
-    <!-- Next steps / Rmd -->
-    <section class="panel">
-      <h2>Next Steps (you can add later)</h2>
-      <ul>
-        <li><a href="introR-rmd1.html">8. Reproducible reports with R Markdown (basics)</a></li>
-        <li><a href="introR-rmd2.html">9. Knitting, parameters, and exporting</a></li>
-        <li><a href="introR-rmd3.html">10. Code + narrative for labs</a></li>
-        <!-- keep placeholders if you’ll add more -->
-        <li class="fine">11. (placeholder) ggplot2 quickstart</li>
-        <li class="fine">12. (placeholder) dplyr verbs for wrangling</li>
-        <li class="fine">13. (placeholder) Descriptive statistics for engineering</li>
-      </ul>
-      <div class="fine">Create new pages by duplicating any module and adjusting the title and content.</div>
-    </section>
-
-    <div class="cta">
-      <a href="/projects/">Back to Projects</a>
-      <a href="https://github.com/gonsalgealmeidateach/gonsalgealmeidateach.github.io/tree/main/projects/IntroR">Git folder</a>
-    </div>
-  </div>
+  </article>
+</main>
 </body>
 </html>
