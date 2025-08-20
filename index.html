@@ -139,10 +139,23 @@ Powered by Hydejack v7.5.0 <https://qwtel.com/hydejack/>
 
 
 
-<style id="_pageStyle">
-
-.content a:not(.btn){color:#2874A6;border-color:rgba(40,116,166,0.2)}.content a:not(.btn):hover{border-color:#2874A6}:focus{outline-color:#2874A6}.btn-primary{color:#fff;background-color:#2874A6;border-color:#2874A6}.btn-primary:focus,.btn-primary.focus{box-shadow:0 0 0 3px rgba(40,116,166,0.5)}.btn-primary:hover,.btn-primary.hover{color:#fff;background-color:#215e87;border-color:#215e87}.btn-primary:disabled,.btn-primary.disabled{color:#fff;background-color:#2874A6;border-color:#2874A6}.btn-primary:active,.btn-primary.active{color:#fff;background-color:#215e87;border-color:#215e87}::selection{color:#fff;background:#2874A6}::-moz-selection{color:#fff;background:#2874A6}
-
+<style>
+/* About page — bigger headshot + left layout */
+.page .avatar{
+  width: 300px;          /* ~3 x 3 in at 96dpi; change to 288px if you want exact */
+  height: 300px;
+  object-fit: cover;     /* crop neatly if not square */
+  border-radius: 8px;    /* remove circle look (optional) */
+  float: left;
+  margin: 0 1.25rem 1rem 0;
+}
+.contact-card { margin-top: .25rem; }
+.contact-card h1 { margin: 0 0 .25rem; }
+.contact-card .subtitle { font-weight: 600; }
+.contact-card .meta { color:#6c757d; margin:.25rem 0; }
+@media (max-width: 600px){
+  .page .avatar{ width:160px; height:160px; }
+}
 </style>
 
 <!--<![endif]-->
@@ -182,14 +195,26 @@ Powered by Hydejack v7.5.0 <https://qwtel.com/hydejack/>
 <article class="page" role="article">
   
    
-  <img
-    src="/assets/img/Headshot_squared.jpg"
-    class="avatar"
-    alt="Gonsalge Almeida"
-    srcset="/assets/img/Headshot_squared.jpg 1x,/assets/img/Headshot_squared.jpg 2x"
-    
-    
-  />
+ <img
+  src="/assets/img/Headshot_squared.jpg"
+  class="avatar"
+  alt="Gonsalge Almeida headshot"
+/>
+
+<div class="contact-card">
+  <h1 class="page-title hr">Gonsalge Almeida</h1>
+
+  <p class="subtitle">
+    Lecturer (Full-time), Department of Mathematics, Applied Mathematics, and Statistics
+  </p>
+  <p class="meta">Case Western Reserve University</p>
+
+  <p class="fine">
+    Office: Sears Library 569 &nbsp;•&nbsp;
+    Email: <a href="mailto:gsa19@case.edu">gsa19@case.edu</a> &nbsp;•&nbsp;
+    Phone: <a href="tel:+12168160342">(216) 816-0342</a>
+  </p>
+</div>
 
 
   
