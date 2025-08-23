@@ -6,7 +6,7 @@ categories: [Research, Risk, Time Series]
 author: "Gonsalge Almeida"
 ---
 
-This project is my ongoing **myown reseach** for an **algorithmic trading stack** that integrates classical **ML4T workflows** with advanced **Lévy-process modeling**. The core stack spans:
+This project is my ongoing **Own reseach** for an **algorithmic trading stack** that integrates classical **ML4T workflows** with advanced **Lévy-process modeling**. The core stack spans:
 
 - **Signal layer** (market + alternative data ingestion)  
 - **Lévy-based modeling** (capturing fat-tails, jumps, stochastic volatility)  
@@ -24,7 +24,7 @@ The **standard ML4T workflow** (Figure 1.1) connects **data sources**, **feature
 
 > In my project, I enhance this by integrating **Lévy processes** into the **factor modeling and prediction stages**, where jump-diffusions and heavy-tailed distributions provide more robust modeling of extreme market moves compared to Gaussian assumptions.  
 
-![Figure 1.1: The ML4T Workflow](/assets/img/ML4Tcaption/ML4T_workflow.png)  
+![Figure 1.1: The ML4T Workflow](/assets/img/ML4T_workflow.png)  
 *Figure 1.1: The ML4T workflow*
 
 ---
@@ -35,7 +35,7 @@ Similarly, the **alpha factor research process** (Figure 1.2) outlines the pipel
 
 In my lab implementation (Apple AT system), I’ve developed a **predictive model that extracts signals** from both **market** and **alternative data**, feeding into **systematic trading strategies** coded in Python.  
 
-[![Figure 1.2: The Alpha Factor Research Process](/assets/alphafactorresearch_process/alpha_process.png)](/assets/alphafactorresearch_process/alpha_process.png)  
+[![Figure 1.2: The Alpha Factor Research Process](/assets/img/alpha_process.png)](/assets/img/alpha_process.png)  
 *Figure 1.2: The alpha factor research process*
 
 ---
