@@ -1,303 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Syllabus: STAT 312 / 312R</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Warm Neutrals -->
-    <!-- Application Structure Plan: A single-page application with a fixed top navigation bar to switch between content sections (Overview, Grading & Policies, Schedule, Resources). This tabbed structure is chosen over a long scroll to provide immediate access to the most sought-after information, improving usability. The "Grading" section will use a donut chart for quick visual understanding of weightings, and the "Schedule" will have a live search filter, making it a functional tool rather than a static table. -->
-    <!-- Visualization & Content Choices: 1. Grading Breakdown -> Goal: Inform/Compare -> Viz: Chart.js Donut Chart -> Interaction: Hover tooltips -> Justification: A visual chart is faster to interpret than text alone for understanding grade component weights. 2. Course Policies -> Goal: Organize/Inform -> Presentation: Accordion UI -> Interaction: Click to expand/collapse -> Justification: Condenses a large amount of text, reducing clutter and allowing users to focus on one policy at a time. 3. Course Schedule -> Goal: Organize/Inform -> Presentation: HTML Table -> Interaction: Live text search/filter -> Justification: Allows students to quickly find specific topics, keywords, or exam dates without manually scanning the entire schedule. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-    <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f8f7f4; }
-        .nav-link { transition: all 0.2s ease-in-out; }
-        .nav-link.active { color: #c2410c; border-bottom-color: #c2410c; }
-        .content-section { display: none; }
-        .content-section.active { display: block; }
-        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
-        .chart-container { position: relative; width: 100%; max-width: 400px; margin-left: auto; margin-right: auto; height: 300px; max-height: 400px; }
-        @media (min-width: 768px) { .chart-container { height: 350px; } }
-    </style>
-</head>
-<body class="text-gray-800">
+---
+layout: page
+title: "STAT 312/312R — Basic Statistics for Engineering & Science"
+permalink: /projects/stat312/312R/
+---
 
-    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
-        <!-- Header -->
-        <header class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-gray-900">STAT 312 / 312R</h1>
-            <p class="text-lg text-gray-600">Basic Statistics for Engineering and Science - Fall 2025</p>
-        </header>
+<div class="hr">
+  <h1 class="page-title" style="margin-bottom:.25rem;">STAT 312/312R — Basic Statistics for Engineering &amp; Science</h1>
+  <p class="faded" style="margin:0;">Fall 2025 · Department of Mathematics, Applied Mathematics, and Statistics · Case Western Reserve University</p>
+</div>
 
-        <!-- Navigation -->
-        <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-10 shadow-sm rounded-lg mb-8">
-            <ul class="flex items-center justify-center border-b border-gray-200">
-                <li><a href="#" data-target="overview" class="nav-link active text-center block border-b-2 border-transparent p-4 text-gray-600 hover:text-orange-800">Overview</a></li>
-                <li><a href="#" data-target="grading" class="nav-link text-center block border-b-2 border-transparent p-4 text-gray-600 hover:text-orange-800">Grading & Policies</a></li>
-                <li><a href="#" data-target="schedule" class="nav-link text-center block border-b-2 border-transparent p-4 text-gray-600 hover:text-orange-800">Schedule</a></li>
-                <li><a href="#" data-target="resources" class="nav-link text-center block border-b-2 border-transparent p-4 text-gray-600 hover:text-orange-800">Resources</a></li>
-            </ul>
-        </nav>
+<!-- Hero summary -->
+<p class="message">
+  Central course hub with lectures, worksheets, datasets, book links, practice apps, and R/RStudio resources.
+  For setup help, see <a href="/projects/IntroR/">Intro to R</a> and <a href="/projects/R/">R Examples &amp; Cheatsheets</a>.
+</p>
 
-        <!-- Main Content -->
-        <main id="main-content">
-            <!-- Overview Section -->
-            <section id="overview" class="content-section active p-4 md:p-6 bg-white rounded-lg shadow-sm">
-                 <h2 class="text-2xl font-bold mb-6 text-orange-900">Course Overview</h2>
-                 <div class="grid md:grid-cols-3 gap-6">
-                    <div class="md:col-span-2">
-                        <h3 class="text-xl font-semibold mb-2">Course Description</h3>
-                        <p class="text-gray-700 mb-4">This course provides a comprehensive introduction to probability models and statistical methods for analyzing data. The primary objective is to equip students with the ability to formulate statistical models, select appropriate methods for inference, and test the model's validity. It offers a balanced approach to probability, fundamental concepts of statistics, estimation, hypothesis testing, analysis of variance, design of experiments, and regression modeling.</p>
-                        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                           <div class="flex-1 p-4 bg-orange-50 rounded-lg border border-orange-200">
-                                <h4 class="font-bold">STAT 312</h4>
-                                <p class="text-sm text-gray-600">Focuses on theoretical foundations and manual calculations.</p>
-                           </div>
-                            <div class="flex-1 p-4 bg-teal-50 rounded-lg border border-teal-200">
-                                <h4 class="font-bold">STAT 312R</h4>
-                                <p class="text-sm text-gray-600">Emphasizes the use of R programming for all statistical analyses.</p>
-                           </div>
-                        </div>
-                    </div>
-                    <div class="bg-gray-50 p-4 rounded-lg">
-                        <h3 class="text-xl font-semibold mb-2">Instructor & Logistics</h3>
-                        <ul class="space-y-2 text-sm">
-                            <li><strong>Instructor:</strong> Dr. Gonsalge Almeida</li>
-                            <li><strong>Email:</strong> <a href="mailto:gas19@case.edu" class="text-orange-700 hover:underline">gas19@case.edu</a></li>
-                            <li><strong>Time:</strong> Tue/Thur 10:00 - 11:15 AM</li>
-                            <li><strong>Place:</strong> Nursing Research Building G25</li>
-                            <li><strong>Office Hours:</strong> MW 1-3pm (Zoom/Office), TR 1-2pm (Sears Library 569)</li>
-                            <li><strong>Prerequisites:</strong> MATH 122 or equivalent</li>
-                        </ul>
-                    </div>
-                 </div>
-                 <div class="mt-6">
-                    <h3 class="text-xl font-semibold mb-2">Learning Outcomes</h3>
-                    <p class="text-gray-700">Upon completion, you will have a firm basis in probability and statistical inference, be able to apply these methods to practical problems, and (for 312R) perform these analyses using R, including data manipulation and visualization with `ggplot2`.</p>
-                 </div>
-            </section>
+<div class="columns" style="margin-top:1rem;">
+  <!-- Lectures & Resources -->
+  <section class="column column-1-2">
+    <h2 class="h3 faded hr">Lecture Resources</h2>
+    <ul>
+      <li><a href="/projects/stat312/312R/lectures/part-1/">Part 1: Descriptive Statistics &amp; Visualization</a></li>
+      <li><a href="/projects/stat312/312R/lectures/part-2/">Part 2: Probability &amp; Distributions</a></li>
+      <li><a href="/projects/stat312/312R/lectures/part-3/">Part 3: Estimation &amp; Confidence Intervals</a></li>
+      <li><a href="/projects/stat312/312R/lectures/part-4/">Part 4: Hypothesis Tests &amp; Regression</a></li>
+      <li><a href="/projects/stat312/312R/datasets/">Datasets &amp; Templates</a></li>
+      <li><a href="/projects/stat312/312R/faq/">Course FAQ</a></li>
+    </ul>
+  </section>
 
-            <!-- Grading & Policies Section -->
-            <section id="grading" class="content-section p-4 md:p-6 bg-white rounded-lg shadow-sm">
-                <h2 class="text-2xl font-bold mb-6 text-orange-900">Grading & Policies</h2>
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="text-xl font-semibold mb-4 text-center">Grade Distribution</h3>
-                        <p class="text-sm text-gray-600 text-center mb-4">The final grade is based on a total of 450 points. Hover over the chart sections for details.</p>
-                        <div class="chart-container">
-                            <canvas id="gradingChart"></canvas>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-semibold mb-4">Course Policies</h3>
-                        <div id="accordion-container" class="space-y-2">
-                            <!-- Accordion Items will be injected here by JS -->
-                        </div>
-                    </div>
-                </div>
-            </section>
+  <!-- Books & Practice -->
+  <section class="column column-1-2">
+    <h2 class="h3 faded hr">Online Book &amp; Practice Apps</h2>
+    <ul>
+      <li><a href="https://onlinestatbook.com/2/" rel="noopener">Online Statistics Book (OpenIntro/rvls)</a></li>
+      <li><a href="https://www.openintro.org/book/os/" rel="noopener">OpenIntro Statistics (free)</a></li>
+      <li><a href="https://www.statcrunch.com/" rel="noopener">StatCrunch (practice)</a></li>
+      <li><a href="https://seeing-theory.brown.edu/" rel="noopener">Seeing Theory (visualizations)</a></li>
+      <li><a href="https://www.desmos.com/calculator" rel="noopener">Desmos Calculator</a></li>
+    </ul>
+  </section>
+</div>
 
-            <!-- Schedule Section -->
-            <section id="schedule" class="content-section p-4 md:p-6 bg-white rounded-lg shadow-sm">
-                <h2 class="text-2xl font-bold mb-4 text-orange-900">Course Schedule</h2>
-                <div class="mb-4">
-                    <input type="text" id="schedule-search" placeholder="Search schedule (e.g., 'Probability' or 'Test 1')..." class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm text-left">
-                        <thead class="bg-gray-100">
-                            <tr>
-                                <th class="p-3">Class #</th>
-                                <th class="p-3">Date</th>
-                                <th class="p-3">Section</th>
-                                <th class="p-3">Main Topics</th>
-                            </tr>
-                        </thead>
-                        <tbody id="schedule-body">
-                            <!-- Schedule rows will be injected here by JS -->
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+<div class="columns">
+  <!-- Textbook -->
+  <section class="column column-1-2">
+    <h2 class="h3 faded hr">Textbook</h2>
+    <p class="fine">
+      (Navidi) <em>Statistics for Engineers and Scientists</em>, 3rd ed. (2010). <strong>Recommended, not required.</strong><br>
+      Note: Lecture sequencing may differ after Chapter 4.
+    </p>
+  </section>
 
-            <!-- Resources Section -->
-            <section id="resources" class="content-section p-4 md:p-6 bg-white rounded-lg shadow-sm">
-                <h2 class="text-2xl font-bold mb-6 text-orange-900">Textbook & Resources</h2>
-                <div class="grid sm:grid-cols-2 gap-6">
-                    <div class="p-6 bg-gray-50 rounded-lg border">
-                        <h3 class="text-xl font-semibold mb-2">Required Textbook</h3>
-                        <p class="text-gray-700">*Applied Statistics and Probability for Engineers*, 7th edition, by Montgomery and Runger.</p>
-                    </div>
-                    <div class="p-6 bg-gray-50 rounded-lg border">
-                        <h3 class="text-xl font-semibold mb-2">Additional Resources</h3>
-                        <p class="text-gray-700">The GitHub page contains tutorials, R-supplements, and data sets.</p>
-                        <a href="https://gonsalgealmeidateach.github.io/" target="_blank" class="inline-block mt-2 text-orange-700 font-semibold hover:underline">Visit GitHub Page &rarr;</a>
-                    </div>
-                </div>
-            </section>
-        </main>
-    </div>
+  <!-- R & RStudio -->
+  <section class="column column-1-2">
+    <h2 class="h3 faded hr">R and RStudio</h2>
+    <ul>
+      <li><a href="https://cran.r-project.org/" rel="noopener">R (CRAN)</a></li>
+      <li><a href="https://posit.co/download/rstudio-desktop/" rel="noopener">RStudio</a></li>
+      <li><a href="/projects/IntroR/">Intro to R/RStudio</a> (installation &amp; first steps)</li>
+      <li><a href="/projects/R/">R Examples &amp; Cheatsheets</a></li>
+    </ul>
+  </section>
+</div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const navLinks = document.querySelectorAll('.nav-link');
-            const contentSections = document.querySelectorAll('.content-section');
+<div class="columns">
+  <!-- Applets -->
+  <section class="column column-1-2">
+    <h2 class="h3 faded hr">Stat Applets</h2>
+    <ul>
+      <li><a href="https://onlinestatbook.com/rvls.html" rel="noopener">RVLS</a></li>
+      <li><a href="https://www.rossmanchance.com/applets/CLT.html" rel="noopener">CLT Applet</a></li>
+      <li><a href="https://www.rossmanchance.com/applets/" rel="noopener">Rossman/Chance Applets</a></li>
+    </ul>
+  </section>
 
-            const scheduleData = [
-                { class: 1, date: '8-26', section: 'Ch 1', topic: 'Introduction' },
-                { class: 2, date: '8-28', section: '2.1-2.3', topic: 'Probability' },
-                { class: 3, date: '9-2', section: '2.4-2.8, 3.1-3.3', topic: 'Probability, Discrete RVs' },
-                { class: 4, date: '9-4', section: '3.4-3.6', topic: 'Discrete RVs' },
-                { class: 5, date: '9-9', section: '4.1-4.6', topic: 'Continuous RVs' },
-                { class: 6, date: '9-11', section: '4.6-4.8', topic: 'Continuous RVs' },
-                { class: 7, date: '9-16', section: '5.1, 5.2', topic: 'Joint Distributions (discrete)' },
-                { class: 8, date: '9-18', section: '5.1-5.4, CLT', topic: 'Joint Distributions (continuous)' },
-                { class: 9, date: '9-23', section: '6.1, 6.2', topic: 'Descriptive Statistics' },
-                { class: 10, date: '9-25', section: '6.3-6.7', topic: 'Descriptive Statistics' },
-                { class: 11, date: '9-30', section: '7.1-7.3, Review', topic: 'Point Estimation, Sampling Distr.' },
-                { class: 12, date: '10-2', section: 'Test 1', topic: 'Covers Chapters 1-6', highlight: true },
-                { class: 13, date: '10-7', section: '7.4', topic: 'Point Estimation' },
-                { class: 14, date: '10-9', section: '8.1', topic: 'Confidence Intervals' },
-                { class: 15, date: '10-14', section: '8.1, 8.2', topic: 'Confidence Intervals' },
-                { class: 16, date: '10-16', section: '8.3-8.5', topic: 'Confidence Intervals' },
-                { class: 17, date: '10-23', section: '9.1, 9.2', topic: 'Hypothesis Testing' },
-                { class: 18, date: '10-28', section: '9.2-9.4', topic: 'Hypothesis Testing' },
-                { class: 19, date: '10-30', section: '9.5', topic: 'Hypothesis Testing' },
-                { class: 20, date: '11-4', section: '10.1, 10.2', topic: 'Two-Sample Inference' },
-                { class: 21, date: '11-6', section: '10.2-10.5', topic: 'Two-Sample Inference' },
-                { class: 22, date: '11-11', section: '10.6, 10.7, 11.1, 11.2', topic: 'Simple Linear Regression' },
-                { class: 23, date: '11-13', section: '11.2, 11.7, Review', topic: 'Simple Linear Regression' },
-                { class: 24, date: '11-18', section: 'Test 2', topic: 'Covers Chapters 7-10', highlight: true },
-                { class: 25, date: '11-20', section: '11.3-11.5, 11.7, 11.8', topic: 'Simple Linear Regression' },
-                { class: 26, date: '11-25', section: '13.1, 13.2', topic: 'ANOVA' },
-                { class: 27, date: '12-2', section: '13.2, 12.1', topic: 'ANOVA, Multiple Regression' },
-                { class: 28, date: '12-4', section: '12.1, 12.2, Review', topic: 'Multiple Linear Regression' },
-                { class: 'Final', date: '12-09', section: 'Final Exam', topic: 'Cumulative (8:00 - 11:00 AM)', highlight: true }
-            ];
+  <!-- Databanks -->
+  <section class="column column-1-2">
+    <h2 class="h3 faded hr">Databanks</h2>
+    <ul>
+      <li><a href="https://archive.ics.uci.edu/" rel="noopener">UCI Machine Learning Repository</a></li>
+      <li><a href="https://scikit-learn.org/stable/datasets.html" rel="noopener">scikit-learn Datasets</a></li>
+      <li><a href="https://www.kaggle.com/datasets" rel="noopener">Kaggle Datasets</a></li>
+      <li><a href="https://dasl.datadescription.com/" rel="noopener">DASL</a></li>
+    </ul>
+  </section>
+</div>
 
-            const policies = [
-                { title: 'Academic Integrity', content: 'Students must abide by the CWRU academic integrity policy. All work must be your own. Any evidence of dishonesty will be reported and may result in a failing grade.' },
-                { title: 'Artificial Intelligence (AI)', content: 'AI tools may be used for brainstorming and understanding, but must be cited. AI is NOT permitted on quizzes and exams. All data analysis and numerical results must be student-developed. You are responsible for verifying any AI-generated information.' },
-                { title: 'Attendance & Quizzes', content: 'Attendance is important. 12 take-home quizzes will be given frequently in class. It is your responsibility to find out what you missed. You may receive at most two missed quizzes via email with an acceptable excuse.' },
-                { title: 'Make-up Work', content: 'Students are responsible for making arrangements with the instructor in advance to complete any work missed due to unavoidable, excused absences.' },
-                { title: 'Classroom Conduct', content: 'Cell phones should be silenced and put away during class to maintain a respectful learning environment.' },
-                { title: 'Accommodation', content: 'Students with disabilities needing accommodations should contact disability services and provide the instructor with an official accommodation letter.' }
-            ];
+<hr>
 
-            navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const targetId = link.getAttribute('data-target');
-
-                    navLinks.forEach(navLink => navLink.classList.remove('active'));
-                    link.classList.add('active');
-
-                    contentSections.forEach(section => {
-                        if (section.id === targetId) {
-                            section.classList.add('active');
-                        } else {
-                            section.classList.remove('active');
-                        }
-                    });
-                });
-            });
-
-            const renderSchedule = (filter = '') => {
-                const scheduleBody = document.getElementById('schedule-body');
-                scheduleBody.innerHTML = '';
-                const filteredData = scheduleData.filter(item => {
-                    return Object.values(item).some(val => 
-                        String(val).toLowerCase().includes(filter.toLowerCase())
-                    );
-                });
-
-                filteredData.forEach(item => {
-                    const row = document.createElement('tr');
-                    row.className = item.highlight ? 'bg-orange-100 font-semibold' : 'hover:bg-gray-50';
-                    row.innerHTML = `
-                        <td class="p-3">${item.class}</td>
-                        <td class="p-3">${item.date}</td>
-                        <td class="p-3">${item.section}</td>
-                        <td class="p-3">${item.topic}</td>
-                    `;
-                    scheduleBody.appendChild(row);
-                });
-            };
-
-            document.getElementById('schedule-search').addEventListener('keyup', (e) => {
-                renderSchedule(e.target.value);
-            });
-            
-            const accordionContainer = document.getElementById('accordion-container');
-            policies.forEach((policy, index) => {
-                const item = document.createElement('div');
-                item.className = 'border border-gray-200 rounded-lg';
-                item.innerHTML = `
-                    <button class="accordion-header w-full text-left p-4 font-semibold flex justify-between items-center hover:bg-gray-50">
-                        <span>${policy.title}</span>
-                        <span class="transform transition-transform duration-300">&#9662;</span>
-                    </button>
-                    <div class="accordion-content px-4">
-                        <p class="py-4 text-gray-700 text-sm">${policy.content}</p>
-                    </div>
-                `;
-                accordionContainer.appendChild(item);
-            });
-
-            document.querySelectorAll('.accordion-header').forEach(header => {
-                header.addEventListener('click', () => {
-                    const content = header.nextElementSibling;
-                    const icon = header.querySelector('span:last-child');
-                    if (content.style.maxHeight) {
-                        content.style.maxHeight = null;
-                        icon.style.transform = 'rotate(0deg)';
-                    } else {
-                        document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
-                        document.querySelectorAll('.accordion-header span:last-child').forEach(i => i.style.transform = 'rotate(0deg)');
-                        content.style.maxHeight = content.scrollHeight + "px";
-                        icon.style.transform = 'rotate(180deg)';
-                    }
-                });
-            });
-
-            const ctx = document.getElementById('gradingChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Quizzes', 'In-class Activity', 'Test 1', 'Test 2', 'Final Exam'],
-                    datasets: [{
-                        label: 'Grade Weight',
-                        data: [20, 10, 20, 20, 30],
-                        backgroundColor: ['#fdba74', '#81e6d9', '#fcd34d', '#fca5a5', '#c2410c'],
-                        borderColor: '#ffffff',
-                        borderWidth: 3
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: 'bottom' },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.label || '';
-                                    if (label) { label += ': '; }
-                                    if (context.parsed !== null) { label += context.parsed + '%'; }
-                                    return label;
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-            
-            renderSchedule();
-        });
-    </script>
-</body>
-</html>
+<p>
+  <a class="btn btn-primary" href="/projects/">← Back to Projects</a>
+</p>
