@@ -221,34 +221,45 @@ Powered by Hydejack v7.5.0 <https://qwtel.com/hydejack/>
  <!-- === About Gonsalge (drop-in section) === -->
 
 <!-- Keep your avatar img tag above if you like; this starts after the H1 -->
-
+<style>
+  /* Biography block: no italics, clean margins, justified text */
+  .bio {
+    font-style: normal;          /* kill any italics */
+    text-align: justify;         /* align both left and right edges */
+    text-justify: inter-word;    /* improve spacing for justification */
+  }
+  .bio p { margin: 1rem 0; }
+  /* On very narrow screens, justification can look gappy—switch to left align */
+  @media (max-width: 640px) {
+    .bio { text-align: left; }
+  }
+</style>
 <section aria-labelledby="bio-title" style="margin-top:1rem;">
   <h2 id="bio-title">Biography</h2>
   <p>
- <p>
-  I am a full-time Lecturer in the Department of Mathematics, Applied Mathematics, and Statistics at
-  Case Western Reserve University (CWRU), beginning Fall 2025. I teach
-  STAT&nbsp;312/312R (Basic Statistics for Engineering and Science) and
-  MATH&nbsp;201 (Introduction to Linear Algebra for Applications). My teaching and research span
-  <em>statistics</em>, <em>applied mathematics</em>, <em>data science</em>, and <em>trading education</em>, with a
-  particular emphasis on <em>financial modeling using Lévy processes</em> and applications to the equity markets.
-</p>
+ <div class="bio">
+  <p>
+    I am a full-time Lecturer in the Department of Mathematics, Applied Mathematics, and Statistics at
+    Case Western Reserve University (CWRU), beginning Fall 2025. I teach STAT 312/312R (Basic Statistics for
+    Engineering and Science) and MATH 201 (Introduction to Linear Algebra for Applications). My teaching and research
+    span statistics, applied mathematics, data science, and trading education, with a particular emphasis on financial
+    modeling using Lévy processes and applications to the equity markets.
+  </p>
 
-<p>
-  I hold a Ph.D. in Applied Mathematics (concentration in Statistics) and have also pursued
-  Ph.D.-level study in Mathematics (concentration in Statistics) at
-  Central Michigan University. I have taught in the United States for more than 13 years.
-  In all of my courses, I integrate real-world datasets, especially from finance, business, and data science, so that
-  students develop <em>modeling fluency</em>, a strong grasp of <em>statistical concepts and their visualization</em>,
-  <em>computational literacy</em>, and the ability to translate <em>applied-mathematics concepts</em> into practical tools
-  for data science.
-</p>
+  <p>
+    I hold a Ph.D. in Applied Mathematics (concentration in Statistics) and have also pursued Ph.D.-level study in
+    Mathematics (concentration in Statistics) at Central Michigan University. I have taught in the United States for
+    more than 13 years. In all of my courses, I integrate real-world datasets, especially from finance, business, and
+    data science, so that students develop modeling fluency, a strong grasp of statistical concepts and their
+    visualization, computational literacy, and the ability to translate applied-mathematics concepts into practical
+    tools for data science.
+  </p>
 
-<p>
-  I also completed a Data Engineering Fellowship at The Data Incubator, focusing on
-  practical machine-learning workflows, data engineering, and end-to-end analytics.
-</p>
-
+  <p>
+    I also completed a Data Engineering Fellowship at The Data Incubator, focusing on practical machine-learning
+    workflows, data engineering, and end-to-end analytics.
+  </p>
+</div>
 <section aria-labelledby="interests-title">
   <h2 id="interests-title">Areas of Interest</h2>
   <ul>
