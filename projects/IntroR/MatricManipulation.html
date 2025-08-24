@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Matrix Manipulation by R — Practice Lab</title>
+  <meta name="description" content="Self‑contained practice page for matrix calculations in R, including examples and exercises with solutions." />
+  <style>
+    :root {
+      --bg: #0f172a;       /* slate-900 */
+      --panel: #111827;    /* gray-900 */
+      --ink: #e5e7eb;      /* gray-200 */
+      --muted: #9ca3af;    /* gray-400 */
+      --accent: #22d3ee;   /* cyan-400 */
+      --accent-2: #34d399; /* emerald-400 */
+      --code-bg: #0b1220;  /* dark code bg */
+      --border: #1f2937;   /* gray-800 */
+    }
+    html, body { height: 100%; }
+    body {
+      margin: 0; font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg); color: var(--ink);
+    }
+    .container { max-width: 1000px; margin: 0 auto; padding: 28px 20px 60px; }
+    header.page {
+      display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
+      margin-bottom: 18px; border-bottom: 1px solid var(--border); padding-bottom: 14px;
+    }
+    header.page h1 { font-size: clamp(1.6rem, 3.2vw, 2.2rem); margin: 0; letter-spacing: 0.2px; }
+    header.page .meta { color: var(--muted); font-size: 0.95rem; }
+    nav.toc { margin: 16px 0 28px; padding: 14px 16px; border: 1px solid var(--border); border-radius: 14px; background: var(--panel); }
+    nav.toc a { color: var(--accent); text-decoration: none; }
+    nav.toc a:hover { text-decoration: underline; }
+    nav.toc ul { margin: 8px 0; padding-left: 20px; }
+    section { margin: 28px 0; }
+    h2 { font-size: 1.4rem; margin: 0 0 8px; }
+    h3 { font-size: 1.1rem; margin: 18px 0 8px; color: var(--accent-2); }
+    p, li { color: #d1d5db; }
+    .pillbar { display: flex; gap: 12px; flex-wrap: wrap; margin: 10px 0 4px; }
+    .pillbar a { border: 1px solid var(--border); background: var(--panel); color: var(--ink); text-decoration: none; padding: 6px 10px; border-radius: 999px; font-size: 0.92rem; }
+    .pillbar a:hover { border-color: var(--accent); }
+    .card { border: 1px solid var(--border); background: var(--panel); border-radius: 16px; padding: 16px; }
+    details { border: 1px dashed var(--border); border-radius: 12px; padding: 10px 12px; background: rgba(255,255,255,0.02); }
+    details + details { margin-top: 10px; }
+    details summary { cursor: pointer; color: var(--accent); font-weight: 600; }
+    pre { position: relative; margin: 0; }
+    pre, code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    pre { background: var(--code-bg); color: #e6edf3; border-radius: 12px; padding: 14px; overflow:auto; border: 1px solid var(--border); }
+    .code-wrap { position: relative; }
+    .copy-btn { position: absolute; top: 10px; right: 10px; border: 1px solid var(--border); background: #0b1220; color: #cbd5e1; padding: 6px 10px; border-radius: 8px; font-size: 12px; cursor: pointer; }
+    .copy-btn:hover { border-color: var(--accent); color: var(--ink); }
+    .note { font-size: 0.95rem; color: var(--muted); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+    footer { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 14px; color: var(--muted); font-size: 0.9rem; }
+    a { color: var(--accent); }
+    .kbd { font-family: inherit; border: 1px solid var(--border); border-bottom-width: 3px; padding: 1px 6px; border-radius: 6px; background: var(--panel); color: var(--ink); font-size: 0.9em; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="page">
+      <div>
+        <h1>Matrix Manipulation by R — Practice Lab</h1>
+        <div class="meta">Self‑study page with examples and graded exercises (with solutions). Last updated: <time datetime="2025-08-24">August 24, 2025</time></div>
+      </div>
+      <div class="pillbar">
+        <a href="../index.html" title="Back to course home">← Course Home</a>
+        <a href="#exercises">Jump to Exercises</a>
+        <a href="#further-reading">Further Reading</a>
+      </div>
+    </header>
+
+    <nav class="toc card" aria-label="Table of contents">
+      <strong>Contents</strong>
+      <ul>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#quickstart">Quick Start (R)</a></li>
+        <li><a href="#cheatsheet">Mini Cheat‑Sheet</a></li>
+        <li><a href="#exercises">Exercises with Solutions</a></li>
+        <li><a href="#further-reading">Further Reading</a></li>
+      </ul>
+    </nav>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>This page provides a concise reference and a sequence of practice problems for matrix calculations in <strong>base R</strong>. It is suitable for review or for use alongside lectures on linear algebra, regression, and numerical computation.</p>
+      <div class="pillbar">
+        <a href="https://gonsalgealmeidateach.github.io/projects/IntroR/index.html" target="_blank" rel="noopener">Intro to R</a>
+        <a href="https://gonsalgealmeidateach.github.io/projects/R/index.html" target="_blank" rel="noopener">R Resources</a>
+      </div>
+      <p class="note">Tip: Use <span class="kbd">Ctrl</span>/<span class="kbd">Cmd</span> + <span class="kbd">Enter</span> in RStudio to run selected lines. Use <code>set.seed()</code> to obtain reproducible random matrices.</p>
+    </section>
+
+    <section id="quickstart">
+      <h2>Quick Start (R)</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Create &amp; Shape</h3>
+          <div class="code-wrap"><button class="copy-btn" aria-label="Copy code">Copy</button>
+          <pre><code class="language-r"># Create matrices
+A &lt;- matrix(1:9, nrow = 3, ncol = 3)       # fills by column by default
+B &lt;- matrix(seq(2, 20, by = 2), nrow = 3)   # another 3x3
+C &lt;- matrix(rnorm(12), nrow = 3, ncol = 4)  # 3x4 random
+
+# Bind and diag
+X &lt;- cbind(1, A)   # add intercept column
+Y &lt;- rbind(A, 10:12)
+I3 &lt;- diag(3)      # 3x3 identity
+</code></pre></div>
+        </div>
+        <div class="card">
+          <h3>Arithmetic &amp; Algebra</h3>
+          <div class="code-wrap"><button class="copy-btn" aria-label="Copy code">Copy</button>
+          <pre><code class="language-r"># Elementwise vs matrix multiplication
+A + B               # addition
+A * B               # elementwise product
+A %*% B             # matrix product
+
+# Transpose, inverse, determinant
+At &lt;- t(A)
+if (det(A) != 0) Ainv &lt;- solve(A)
+
+# Norms and rank
+norm_A &lt;- norm(A, type = "F")
+rank_A &lt;- qr(A)$rank
+</code></pre></div>
+        </div>
+        <div class="card">
+          <h3>Indexing &amp; Apply</h3>
+          <div class="code-wrap"><button class="copy-btn" aria-label="Copy code">Copy</button>
+          <pre><code class="language-r">A[1, 2]         # element (row 1, col 2)
+A[ , 2]         # column 2 (as vector)
+A[1:2, 2:3]     # submatrix
+A[diag(3) == 1] &lt;- 5   # set diagonal to 5
+
+rowSums(A); colMeans(A)
+apply(A, 1, sd)        # row-wise sd
+</code></pre></div>
+        </div>
+        <div class="card">
+          <h3>Systems, Eigen, SVD</h3>
+          <div class="code-wrap"><button class="copy-btn" aria-label="Copy code">Copy</button>
+          <pre><code class="language-r"># Linear system Ax = b
+set.seed(1)
+A &lt;- matrix(rnorm(9), 3, 3)
+b &lt;- rnorm(3)
+x &lt;- solve(A, b)      # solves Ax = b
+
+# Eigen and SVD
+E &lt;- eigen(A)         # E$values, E$vectors
+sv &lt;- svd(A)          # U, D, V
+
+# Least squares (normal equations)
+X &lt;- cbind(1, matrix(rnorm(20), 10, 2))
+y &lt;- rnorm(10)
+beta_hat &lt;- solve(t(X) %*% X, t(X) %*% y)
+</code></pre></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cheatsheet">
+      <h2>Mini Cheat‑Sheet</h2>
+      <ul>
+        <li><code>matrix(data, nrow, ncol, byrow = FALSE)</code> — build a matrix.</li>
+        <li><code>cbind(...), rbind(...)</code> — column/row bind.</li>
+        <li><code>diag(n)</code> — identity; <code>diag(v)</code> — diagonal with entries <code>v</code>.</li>
+        <li><code>t(A)</code> — transpose; <code>solve(A)</code> — inverse or solve system; <code>det(A)</code> — determinant.</li>
+        <li><code>%*%</code> — matrix product; <code>*</code> — elementwise product.</li>
+        <li><code>rowSums/colSums</code>, <code>rowMeans/colMeans</code>, <code>apply(A, MARGIN, FUN)</code>.</li>
+        <li><code>eigen(A)</code>, <code>svd(A)</code>, <code>qr(A)$rank</code>, <code>crossprod(X)</code> (= <code>t(X)%*%X</code>), <code>tcrossprod(X)</code>.</li>
+      </ul>
+    </section>
+
+    <section id="exercises">
+      <h2>Exercises with Solutions</h2>
+      <p>Work through these in order. Each problem includes an optional solution. Unless stated otherwise, assume all matrices are conformable and invertible where needed.</p>
+
+      <article class="card" id="ex1">
+        <h3>1) Basic construction &amp; products</h3>
+        <p>Create two 3×3 matrices <code>A</code> and <code>B</code>. Compute <code>A + B</code>, <code>A * B</code> (elementwise), and <code>A %*% B</code>. Check whether <code>A %*% B</code> equals <code>B %*% A</code>.</p>
+        <details class="solution"><summary>Show solution (R)</summary>
+          <div class="code-wrap"><button class="copy-btn" aria-label="Copy code">Copy</button>
+          <pre><code class="language-r">set.seed(42)
+A &lt;- matrix(sample(1:9), 3, 3)
+B &lt;- matrix(sample(1:9), 3, 3)
+A + B
+A * B
+A %*% B
+all.equal(A %*% B, B %*% A)  # generally FALSE
+</code></pre></div>
+        </details>
+      </article>
+
+      <article class="card" id="ex2">
+        <h3>2) Transpose, determinant, inverse</h3>
+        <p>Compute <code>t(A)</code>, <code>det(A)</code>, and (if invertible) <code>solve(A)</code>. Verify numerically that <code>A %*% solve(A)</code> is the identity.</p>
+        <details class="solution"><summary>Show solution (R)</summary>
+          <div class="code-wrap"><button class="copy-btn" aria-label="Copy code">Copy</button>
+          <pre><code class="language-r">At  &lt;- t(A)
+DA  &lt;- det(A)
+if (abs(DA) &gt; 1e-12) {
+  Ainv &lt;- solve(A)
+  I3   &lt;- A %*% Ainv
+  round(I3, 8)
+}
+</code></pre></div>
+        </details>
+      </article>
+
+      <article class="card" id="ex3">
+        <h3>3) Indexing &amp; replacement</h3>
+        <p>Replace the diagonal entries of <code>A</code> with <code>5</code>. Extract the submatrix formed by rows 1–2 and columns 2–3.</p>
+        <details class="solution"><summary>Show solution (R)</summary>
+          <div class="code-wrap"><button class="copy-btn" aria-label="Copy code">Copy</button>
+          <pre><code class="language-r">diag(A) &lt;- 5
+subA &lt;- A[1:2, 2:3]
+A; subA
+</code></pre></div>
+        </details>
+      </article>
+
+      <article class="card" id="ex4">
+        <h3>4) Row/column summaries</h3>
+        <p>Compute <code>rowSums(A)</code>, <code>colMeans(A)</code>, and the row‑wise standard deviation using <code>apply</code>.</p>
+        <details class="solution"><summary>Show solution (R)</summary>
+          <div class="code-wrap"><button class="copy-btn" aria-label="Copy code">Copy</button>
+          <pre><code class="language-r">rowSums(A)
+colMeans(A)
+apply(A, 1, sd)
+</code></pre></div>
+        </details>
+      </article>
+
+      <article class="card" id="ex5">
+        <h3>5) Linear system</h3>
+        <p>Generate a random invertible 3×3 matrix <code>A</code> and vector <code>b</code>. Solve <code>Ax = b</code> for <code>x</code>.</p>
+        <details class="solution"><summary>Show solution (R)</summary>
+          <div class="code-wrap"><button class="copy-btn" aria-label="Copy code">Copy</button>
+          <pre><code class="language-r">set.seed(1)
+A &lt;- matrix(rnorm(9), 3, 3); b &lt;- rnorm(3)
+x &lt;- solve(A, b)
+# check
+max(abs(A %*% x - b))
+</code></pre></div>
+        </details>
+      </article>
+
+      <article class="card" id="ex6">
+        <h3>6) Least squares via normal equations</h3>
+        <p>Simulate data with two predictors (plus intercept) and solve for <code>\(\hat{\beta}\)</code> using <code>(X'X)^{-1} X'y</code>.</p>
+        <details class="solution"><summary>Show solution (R)</summary>
+          <div class="code-wrap"><button class="copy-btn" aria-label="Copy code">Copy</button>
+          <pre><code class="language-r">set.seed(7)
+X &lt;- cbind(1, matrix(rnorm(200), 100, 2))
+y &lt;- 3 + 2*X[,2] - 1*X[,3] + rnorm(100, sd=0.5)
+beta_hat &lt;- solve(t(X) %*% X, t(X) %*% y)
+round(beta_hat, 3)
+</code></pre></div>
+        </details>
+      </article>
+
+      <article class="card" id="ex7">
+        <h3>7) Eigen decomposition</h3>
+        <p>Compute the eigenvalues and eigenvectors of a symmetric positive definite matrix and verify the reconstruction <code>A = V %*% D %*% t(V)</code>.</p>
+        <details class="solution"><summary>Show solution (R)</summary>
+          <div class="code-wrap"><button class="copy-btn" aria-label="Copy code">Copy</button>
+          <pre><code class="language-r">set.seed(3)
+M &lt;- matrix(rnorm(16), 4, 4)
+A &lt;- crossprod(M)  # SPD
+E &lt;- eigen(A)
+V &lt;- E$vectors; D &lt;- diag(E$values)
+max(abs(A - V %*% D %*% t(V)))
+</code></pre></div>
+        </details>
+      </article>
+
+      <article class="card" id="ex8">
+        <h3>8) Rank and numerical stability</h3>
+        <p>Construct a nearly collinear design matrix and compare <code>solve</code> vs <code>qr.solve</code> for least squares.</p>
+        <details class="solution"><summary>Show solution (R)</summary>
+          <div class="code-wrap"><button class="copy-btn" aria-label="Copy code">Copy</button>
+          <pre><code class="language-r">set.seed(4)
+x1 &lt;- rnorm(100)
+x2 &lt;- x1 + rnorm(100, sd=1e-4)  # nearly collinear
+X  &lt;- cbind(1, x1, x2)
+y  &lt;- 1 + 2*x1 - 2*x2 + rnorm(100, sd=0.2)
+# Normal equations (may be unstable)
+beta_ne &lt;- solve(t(X)%*%X, t(X)%*%y)
+# QR-based solution (preferred)
+beta_qr &lt;- qr.solve(X, y)
+qr(X)$rank
+cbind(beta_ne, beta_qr)
+</code></pre></div>
+        </details>
+      </article>
+
+      <article class="card" id="ex9">
+        <h3>9) Block matrices</h3>
+        <p>Build a 4×4 block matrix \(\begin{bmatrix}I_2 & A\\ 0 & B\end{bmatrix}\) for given 2×2 matrices <code>A</code>, <code>B</code>. Verify its determinant equals <code>det(A) * det(B)</code>.</p>
+        <details class="solution"><summary>Show solution (R)</summary>
+          <div class="code-wrap"><button class="copy-btn" aria-label="Copy code">Copy</button>
+          <pre><code class="language-r">I2 &lt;- diag(2)
+A  &lt;- matrix(c(2,1,0,3), 2, 2)
+B  &lt;- matrix(c(4,2,1,2), 2, 2)
+Z  &lt;- matrix(0, 2, 2)
+Blk &lt;- rbind(cbind(I2, A), cbind(Z, B))
+all.equal(det(Blk), det(A) * det(B))
+</code></pre></div>
+        </details>
+      </article>
+
+      <article class="card" id="ex10">
+        <h3>10) Crossproducts &amp; covariances</h3>
+        <p>Show that <code>crossprod(X)</code> equals <code>t(X) %*% X</code> and use it to compute a sample covariance matrix.</p>
+        <details class="solution"><summary>Show solution (R)</summary>
+          <div class="code-wrap"><button class="copy-btn" aria-label="Copy code">Copy</button>
+          <pre><code class="language-r">set.seed(6)
+X &lt;- matrix(rnorm(300), 100, 3)
+all.equal(crossprod(X), t(X) %*% X)
+# sample covariance (unbiased)
+Xc &lt;- scale(X, center = TRUE, scale = FALSE)
+S  &lt;- crossprod(Xc) / (nrow(X) - 1)
+S
+</code></pre></div>
+        </details>
+      </article>
+
+      <article class="card" id="ex11">
+        <h3>11) Outer products and projections</h3>
+        <p>Let <code>u</code> be a non‑zero vector. Form the projection matrix <code>P = u %*% t(u) / as.numeric(t(u) %*% u)</code> and verify <code>P %*% P = P</code>.</p>
+        <details class="solution"><summary>Show solution (R)</summary>
+          <div class="code-wrap"><button class="copy-btn" aria-label="Copy code">Copy</button>
+          <pre><code class="language-r">u  &lt;- c(1,2,3)
+P  &lt;- (u %*% t(u)) / as.numeric(t(u) %*% u)
+max(abs(P %*% P - P))
+</code></pre></div>
+        </details>
+      </article>
+
+      <article class="card" id="ex12">
+        <h3>12) SVD reconstruction</h3>
+        <p>Use <code>svd</code> to reconstruct a matrix and verify the maximum absolute reconstruction error.</p>
+        <details class="solution"><summary>Show solution (R)</summary>
+          <div class="code-wrap"><button class="copy-btn" aria-label="Copy code">Copy</button>
+          <pre><code class="language-r">set.seed(9)
+A &lt;- matrix(rnorm(25), 5, 5)
+SV &lt;- svd(A)
+Ahat &lt;- SV$u %*% diag(SV$d) %*% t(SV$v)
+max(abs(A - Ahat))
+</code></pre></div>
+        </details>
+      </article>
+    </section>
+
+    <section id="further-reading">
+      <h2>Further Reading</h2>
+      <ul>
+        <li>R Manual: <a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.html#Matrices" target="_blank" rel="noopener">Matrices</a></li>
+        <li>Base R help: <code>?matrix</code>, <code>?solve</code>, <code>?eigen</code>, <code>?svd</code>, <code>?qr</code>, <code>?crossprod</code></li>
+      </ul>
+    </section>
+
+    <footer>
+      © <span id="yr">2025</span> — Matrix Manipulation by R (Practice). You may link this file directly from your course site.
+    </footer>
+  </div>
+
+  <script>
+    // Copy-to-clipboard for all code blocks
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.code-wrap').forEach((wrap) => {
+        const btn = wrap.querySelector('.copy-btn');
+        const code = wrap.querySelector('pre code');
+        if (!btn || !code) return;
+        btn.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(code.textContent);
+            const original = btn.textContent;
+            btn.textContent = 'Copied!';
+            setTimeout(() => (btn.textContent = original), 1200);
+          } catch (e) {
+            console.error('Copy failed', e);
+          }
+        });
+      });
+      // year
+      const y = document.getElementById('yr'); if (y) y.textContent = new Date().getFullYear();
+    });
+  </script>
+</body>
+</html>
