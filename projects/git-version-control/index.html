@@ -4,246 +4,248 @@ title: Technical Foundations – Git & Research Computing
 permalink: /projects/git-version-control/
 ---
 
-# Technical Foundations Bootcamp (Weeks 1–4)
-**RSH7033 — Applied Multivariate Statistics (DBA)**  
-Trine University — TrineOnline / CGPS  
+<h1>Technical Foundations Bootcamp (Weeks 1–4)</h1>
 
-This four-week technical module prepares students to build, document, and deploy a fully reproducible multivariate research project using professional Git workflows.
+<p><strong>RSH7033 — Applied Multivariate Statistics (DBA)</strong><br>
+Trine University — TrineOnline / CGPS</p>
 
-Weeks 1–4 → Technical Preparation  
-Weeks 5–8 → Final Git-Managed Research Project  
+<p>
+This four-week technical module prepares students to build, document, and deploy
+a fully reproducible multivariate research project using professional Git workflows.
+</p>
 
----
+<p>
+Weeks 1–4 → Technical Preparation<br>
+Weeks 5–8 → Final Git-Managed Research Project
+</p>
 
-# WEEK 1 — Unix Environment & Git Foundations
+<hr>
 
-Modern research workflows operate in Unix-like systems (Linux/macOS).
+<h1>WEEK 1 — Unix Environment & Git Foundations</h1>
 
----
+<p>Modern research workflows operate in Unix-like systems (Linux/macOS).</p>
 
-## Step 1: Access a Unix Terminal
+<hr>
 
-macOS → Terminal  
-Linux → Default shell  
-Windows → Install one of:
+<h2>Step 1: Access a Unix Terminal</h2>
 
-WSL:  
-https://learn.microsoft.com/en-us/windows/wsl/install  
+<ul>
+<li>macOS → Terminal</li>
+<li>Linux → Default shell</li>
+<li>Windows → Install one of:
+  <ul>
+    <li><a href="https://learn.microsoft.com/en-us/windows/wsl/install" target="_blank">WSL</a></li>
+    <li><a href="https://git-scm.com/downloads" target="_blank">Git Bash</a></li>
+    <li><a href="https://www.cygwin.com/" target="_blank">Cygwin</a></li>
+  </ul>
+</li>
+</ul>
 
-Git Bash:  
-https://git-scm.com/downloads  
+<hr>
 
-Cygwin:  
-https://www.cygwin.com/
+<h2>Step 2: Learn the Linux Command Line</h2>
 
----
+<ul>
+<li><a href="https://ubuntu.com/tutorials/command-line-for-beginners" target="_blank">Ubuntu Tutorial</a></li>
+<li><a href="https://linuxcommand.org/lc3_learning_the_shell.php" target="_blank">Linux Command Reference</a></li>
+</ul>
 
-## Step 2: Learn the Linux Command Line
+<p>Master these commands:</p>
 
-Ubuntu tutorial:  
-https://ubuntu.com/tutorials/command-line-for-beginners  
+<ul>
+<li>pwd</li>
+<li>ls</li>
+<li>cd</li>
+<li>mkdir</li>
+<li>rm</li>
+<li>cp</li>
+<li>mv</li>
+</ul>
 
-Linux reference:  
-https://linuxcommand.org/lc3_learning_the_shell.php  
+<hr>
 
-Master these commands:
+<h2>Step 3: Install Git & Setup GitHub</h2>
 
-- pwd  
-- ls  
-- cd  
-- mkdir  
-- rm  
-- cp  
-- mv  
+<ul>
+<li><a href="https://git-scm.com/downloads" target="_blank">Install Git</a></li>
+<li><a href="https://github.com/" target="_blank">Create GitHub Account</a></li>
+<li><a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh" target="_blank">Setup SSH Authentication</a></li>
+</ul>
 
----
+<pre><code>git config --global user.name "Your Name"
+git config --global user.email "your.email@trine.edu"
+ssh-keygen -t ed25519 -C "your.email@trine.edu"</code></pre>
 
-## Step 3: Install Git & Setup GitHub
+<hr>
 
-Install Git:  
-https://git-scm.com/downloads  
+<h2>Step 4: Git Practice</h2>
 
-Create GitHub account:  
-https://github.com/
+<ul>
+<li><a href="https://git-scm.com/docs/gittutorial" target="_blank">Official Git Tutorial</a></li>
+<li><a href="https://learngitbranching.js.org/" target="_blank">Interactive Branching Practice</a></li>
+</ul>
 
-Configure Git:
+<p>Complete:</p>
 
-    git config --global user.name "Your Name"
-    git config --global user.email "your.email@trine.edu"
+<ul>
+<li>Introduction Sequence</li>
+<li>Push &amp; Pull — Git Remotes</li>
+</ul>
 
-Setup SSH authentication:  
-https://docs.github.com/en/authentication/connecting-to-github-with-ssh  
+<hr>
 
-Generate SSH key:
+<h3>WEEK 1 DELIVERABLE</h3>
 
-    ssh-keygen -t ed25519 -C "your.email@trine.edu"
+<ul>
+<li>GitHub repository created</li>
+<li>SSH configured</li>
+<li>Minimum 10 commits</li>
+<li>At least one branch created and merged</li>
+<li>Professional README file</li>
+</ul>
 
----
+<hr>
 
-## Step 4: Git Practice
+<h1>WEEK 2 — HTTP &amp; HTML Foundations</h1>
 
-Official Git tutorial (first 10 sections):  
-https://git-scm.com/docs/gittutorial  
+<p>Understanding web communication is essential for API and data extraction work.</p>
 
-Interactive branching practice:  
-https://learngitbranching.js.org/
+<h2>HTTP Basics</h2>
 
-Complete:
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview" target="_blank">HTTP Overview</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods" target="_blank">HTTP Methods</a></li>
+</ul>
 
-- Introduction Sequence  
-- Push & Pull — Git Remotes  
+<p>Understand:</p>
 
----
+<ul>
+<li>Request vs Response</li>
+<li>GET vs POST</li>
+<li>Status codes</li>
+</ul>
 
-### WEEK 1 DELIVERABLE
+<h2>HTML Fundamentals</h2>
 
-- GitHub repository created  
-- SSH configured  
-- Minimum 10 commits  
-- At least one branch created and merged  
-- Professional README file  
+<ul>
+<li><a href="https://www.w3schools.com/html/html_intro.asp" target="_blank">HTML Introduction</a></li>
+<li><a href="https://www.w3schools.com/html/html_elements.asp" target="_blank">HTML Elements</a></li>
+<li><a href="https://www.w3schools.com/html/html_attributes.asp" target="_blank">HTML Attributes</a></li>
+</ul>
 
----
+<hr>
 
-# WEEK 2 — HTTP & HTML Foundations
+<h3>WEEK 2 DELIVERABLE</h3>
 
-Understanding web communication is essential for API and data extraction work.
+<ul>
+<li>Create <code>/web-foundations</code> folder</li>
+<li>Markdown summary of HTTP basics</li>
+<li>Annotated HTML example</li>
+<li>Commit to GitHub</li>
+</ul>
 
----
+<hr>
 
-## HTTP Basics
+<h1>WEEK 3 — Regular Expressions</h1>
 
-https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview  
-https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods  
+<p>Regex is essential for structured text extraction.</p>
 
-Understand:
+<ul>
+<li><a href="https://regexone.com/" target="_blank">RegexOne Tutorial</a></li>
+<li><a href="https://regex101.com/" target="_blank">Regex Practice (Python Flavor)</a></li>
+<li><a href="https://docs.python.org/3/library/re.html" target="_blank">Python re Documentation</a></li>
+</ul>
 
-- Request vs Response  
-- GET vs POST  
-- Status codes  
+<hr>
 
----
+<h3>WEEK 3 DELIVERABLE</h3>
 
-## HTML Fundamentals
+<ul>
+<li>At least 5 regex examples documented</li>
+<li>Example input/output</li>
+<li>Clear explanation of patterns</li>
+<li>Committed to repository</li>
+</ul>
 
-https://www.w3schools.com/html/html_intro.asp  
-https://www.w3schools.com/html/html_elements.asp  
-https://www.w3schools.com/html/html_attributes.asp  
+<hr>
 
-Understand:
+<h1>WEEK 4 — Reproducible Research with Binder</h1>
 
-- Tags  
-- Elements  
-- Attributes  
+<p>Professional research must be executable by others.</p>
 
----
+<ul>
+<li><a href="https://jupyter.org/" target="_blank">Jupyter Overview</a></li>
+<li><a href="https://mybinder.readthedocs.io/en/latest/" target="_blank">Binder Documentation</a></li>
+</ul>
 
-### WEEK 2 DELIVERABLE
+<h2>Milestone Project — Binder Deployment</h2>
 
-- Create `/web-foundations` folder  
-- Markdown summary of HTTP basics  
-- Annotated HTML example  
-- Commit to GitHub  
+<ol>
+<li>Create a public GitHub repository</li>
+<li>Add a Jupyter notebook (.ipynb)</li>
+<li>Include datasets</li>
+<li>Create a requirements.txt file</li>
+<li>Add Binder badge to README</li>
+<li>Verify notebook runs successfully</li>
+</ol>
 
----
+<p>Example requirements.txt:</p>
 
-# WEEK 3 — Regular Expressions
+<pre><code>pandas
+numpy
+matplotlib
+seaborn
+scikit-learn</code></pre>
 
-Regex is essential for structured text extraction.
+<p>Example Binder badge:</p>
 
----
+<pre><code>[![Launch Binder](https://mybinder.org/badge_logo.svg)]
+(https://mybinder.org/v2/gh/yourusername/yourrepo/HEAD)</code></pre>
 
-RegexOne tutorial (first 8 lessons):  
-https://regexone.com/
+<hr>
 
-Practice here (Python flavor):  
-https://regex101.com/
+<h3>WEEK 4 DELIVERABLE</h3>
 
-Python re documentation:  
-https://docs.python.org/3/library/re.html  
+<ul>
+<li>Public repository</li>
+<li>Functional Binder link</li>
+<li>Reproducible notebook</li>
+<li>Clean documentation</li>
+<li>Minimum 20 total commits</li>
+</ul>
 
----
+<hr>
 
-### WEEK 3 DELIVERABLE
+<h1>WEEKS 5–8 — Final Multivariate Research Project</h1>
 
-- At least 5 regex examples documented  
-- Example input/output  
-- Clear explanation of patterns  
-- Committed to repository  
+<p>Students apply all technical foundations to build a full research project using:</p>
 
----
+<ul>
+<li>Structured branching</li>
+<li>Frequent commits</li>
+<li>Version-controlled analysis</li>
+<li>Documented data cleaning</li>
+<li>Binder deployment</li>
+<li>Final merged submission</li>
+</ul>
 
-# WEEK 4 — Reproducible Research with Binder
+<hr>
 
-Professional research must be executable by others.
+<h1>PROFESSIONAL STANDARD BY WEEK 8</h1>
 
----
+<ul>
+<li>30+ meaningful commits</li>
+<li>Logical branch structure</li>
+<li>Clear README documentation</li>
+<li>Reproducible Binder environment</li>
+<li>Organized folder structure</li>
+<li>Professional commit messages</li>
+</ul>
 
-Jupyter overview:  
-https://jupyter.org/
+<p><strong>Version control competency is part of the academic assessment in RSH7033.</strong></p>
 
-Binder documentation:  
-https://mybinder.readthedocs.io/en/latest/
+<hr>
 
----
-
-## Milestone Project — Binder Deployment
-
-You must:
-
-1. Create a public GitHub repository  
-2. Add a Jupyter notebook (.ipynb)  
-3. Include datasets  
-4. Create a requirements.txt file  
-5. Add Binder badge to README  
-6. Verify notebook runs successfully  
-
-Example requirements.txt:
-
-    pandas
-    numpy
-    matplotlib
-    seaborn
-    scikit-learn
-
-Example Binder badge:
-
-    [![Launch Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/yourusername/yourrepo/HEAD)
-
----
-
-### WEEK 4 DELIVERABLE
-
-- Public repository  
-- Functional Binder link  
-- Reproducible notebook  
-- Clean documentation  
-- Minimum 20 total commits  
-
----
-
-# WEEKS 5–8 — Final Multivariate Research Project
-
-Students apply all technical foundations to build a full research project using:
-
-- Structured branching  
-- Frequent commits  
-- Version-controlled analysis  
-- Documented data cleaning  
-- Binder deployment  
-- Final merged submission  
-
----
-
-# PROFESSIONAL STANDARD BY WEEK 8
-
-Minimum expectations:
-
-- 30+ meaningful commits  
-- Logical branch structure  
-- Clear README documentation  
-- Reproducible Binder environment  
-- Organized folder structure  
-- Professional commit messages  
-
-Version control competency is part of the academic assessment in RSH7033.
+<p>
+<a href="/projects/RSH7033/">← Back to RSH7033 Course Hub</a>
+</p>
