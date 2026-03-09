@@ -1,0 +1,293 @@
+# Discriminant analysis with the placekicking data#
+
+placekick <- read.csv(file = "Placekick.csv")
+head(placekick)
+valid <- read.csv(file = "valid.csv")
+head(valid)
+
+
+################################################################################
+# Initial plots
+
+  library(MASS)
+  
+  #Not too useful due to discreteness of most variables
+  placekick.color <- ifelse(test = placekick$good == 1, yes = "red", no = "black")
+  parcoord(x = placekick[,-9], col = placekick.color, main = "Placekick data parallel coordinate plot")
+
+  pca.cor <- princomp(formula = ~ week + distance + change + elap30 + PAT + type + field + wind,
+    data = placekick, cor = TRUE, scores = TRUE)
+  summary(pca.cor, loadings = TRUE, cutoff = 0.0) #44% with 2PCs, 58% with 3PCs
+  pca.cor$scale <- apply(X = placekick[,-9], MARGIN = 2, FUN = sd)
+  score.cor <- predict(pca.cor, newdata = placekick)
+  common.limits <- c(min(score.cor[,1:2]), max(score.cor[,1:2]))
+  plot(x = score.cor[,1], y = score.cor[,2], xlab = "PC #1", ylab = "PC #2",
+    main = "Principal components \n Plotting point corresponds to good variable",
+    xlim = common.limits, ylim = common.limits, panel.first = grid(col = "lightgray", lty = "dotted"),
+    col = placekick.color)
+  abline(h = 0)
+  abline(v = 0)
+  legend(x = -3, y = -2, legend = c("Success", "Failure"), col = c("red", "black"), bty = "n",
+    pch = c(1,1))
+  #Bands in the plot are due to the discreteness in the data
+  #Note that the larger the distance, the smaller PC #1 is. This is why there are more black on the left side
+  #  of the plot
+
+  #Investigate PAT
+  PAT.color <- ifelse(test = placekick$PAT == 1, yes = "blue", no = "darkgreen")
+  plot(x = score.cor[,1], y = score.cor[,2], xlab = "PC #1", ylab = "PC #2",
+    main = "Principal components \n Plotting point corresponds to PAT variable",
+    xlim = common.limits, ylim = common.limits, panel.first = grid(col = "lightgray", lty = "dotted"),
+    col = PAT.color)
+  abline(h = 0)
+  abline(v = 0)
+  legend(x = -3, y = -2, legend = c("PAT", "Field goal"), col = c("blue", "darkgreen"), bty = "n",
+    pch = c(1,1))
+
+  #Investigate change
+  change.color <- ifelse(test = placekick$change == 1, yes = "blue", no = "darkgreen")
+  plot(x = score.cor[,1], y = score.cor[,2], xlab = "PC #1", ylab = "PC #2",
+    main = "Principal components \n Plotting point corresponds to change variable",
+    xlim = common.limits, ylim = common.limits, panel.first = grid(col = "lightgray", lty = "dotted"),
+    col = change.color)
+  abline(h = 0)
+  abline(v = 0)
+  legend(x = -3, y = -2, legend = c("Lead change", "No lead change"), col = c("blue", "darkgreen"), bty = "n",
+    pch = c(1,1))
+
+  #Investigate field
+  field.color <- ifelse(test = placekick$field == 1, yes = "blue", no = "darkgreen")
+  plot(x = score.cor[,1], y = score.cor[,2], xlab = "PC #1", ylab = "PC #2",
+    main = "Principal components \n Plotting point corresponds to field variable",
+    xlim = common.limits, ylim = common.limits, panel.first = grid(col = "lightgray", lty = "dotted"),
+    col = field.color)
+  abline(h = 0)
+  abline(v = 0)
+  legend(x = -3, y = -2, legend = c("Grass", "Artificial turf"), col = c("blue", "darkgreen"), bty = "n",
+    pch = c(1,1))
+
+  #Investigate type
+  type.color <- ifelse(test = placekick$type == 1, yes = "blue", no = "darkgreen")
+  plot(x = score.cor[,1], y = score.cor[,2], xlab = "PC #1", ylab = "PC #2",
+    main = "Principal components \n Plotting point corresponds to type variable",
+    xlim = common.limits, ylim = common.limits, panel.first = grid(col = "lightgray", lty = "dotted"),
+    col = type.color)
+  abline(h = 0)
+  abline(v = 0)
+  legend(x = -3, y = -2, legend = c("Outdoor", "Dome"), col = c("blue", "darkgreen"), bty = "n",
+    pch = c(1,1))
+
+
+  library(rgl)
+  plot3d(x = score.cor[,1], y = score.cor[,2], z = score.cor[,3], xlab = "PC #1", ylab = "PC #2", zlab =
+    "PC #3", type = "h", xlim = common.limits, ylim = common.limits)
+  good <- placekick$good == 1
+  plot3d(x = score.cor[good,1], y = score.cor[good,2], z = score.cor[good,3], add = TRUE, col = "red", size = 6)
+  plot3d(x = score.cor[!good,1], y = score.cor[!good,2], z = score.cor[!good,3], add = TRUE, col = "black",
+    size = 6)
+  persp3d(x = common.limits, y = common.limits, z = matrix(data = c(0,0,0,0), nrow = 2, ncol = 2), add
+    = TRUE, col = "green") #Plane
+  grid3d(side = c("x", "y", "z"), col = "lightgray")
+
+
+
+################################################################################
+# LDA using resubstitution
+
+  library(MASS)
+
+  #Normally, I would not use equal priors and resubstitution. I am doing it here
+  #  to demonstrate the simplest way to perform DA.
+  DA1 <- lda(formula = good ~ week + distance + change + elap30 + PAT + type + field + wind,
+    data = placekick, CV = FALSE, prior = c(1,1)/2)
+  DA1
+  names(DA1)
+  class(DA1)
+  methods(class = "lda")
+  
+  DA1$prior
+  DA1$counts
+  DA1$means
+  DA1$scaling  #Not exactly b'x
+
+  pred.resub <- predict(object = DA1)
+  names(pred.resub)
+  head(pred.resub$posterior)
+  head(pred.resub$class)
+  head(pred.resub$x) #A rescaled version of b'x. Values > 0 indicate a 1 classification
+  
+  class.lin.discrim.rule <- ifelse(test = pred.resub$x > 0, yes = 1, no = 0)
+  rule2 <- ifelse(test = pred.resub$posterior[,1] < 0.5, yes = 1, no = 0)
+  table(class.lin.discrim.rule, rule2) #Same
+
+
+  #Matrix calculations
+  obs1 <- t(as.matrix(placekick[1,-9]))  #Force it to be an actual column vector
+  obs1
+  pop0 <- placekick[placekick$good == 0,-9]
+  pop1 <- placekick[placekick$good == 1,-9]
+  N0 <- nrow(pop0)
+  N1 <- nrow(pop1)
+  #head(pop1)
+  sigma.hat0 <- cov(pop0)
+  sigma.hat1 <- cov(pop1)
+  sigma.hat.p <- ((N0 - 1)*sigma.hat0 + (N1 - 1)*sigma.hat1)/(N0 + N1 - 2)
+  mu.hat0 <- as.matrix(colMeans(pop0)) #Force it to be an actual column vector
+  mu.hat1 <- as.matrix(colMeans(pop1))
+  b <- solve(sigma.hat.p) %*% (mu.hat0 - mu.hat1)
+  k <- 0.5*t(mu.hat0 - mu.hat1) %*% solve(sigma.hat.p) %*% (mu.hat0 + mu.hat1)
+  b
+  k
+  t(b)%*%obs1
+  t(b)%*%obs1 - k
+  obs2 <- t(as.matrix(placekick[2,-9]))  #Force it to be an actual column vector
+  t(b)%*%obs2 - k
+
+  #Mahalanobis distances
+  D0 <- t(obs1 - mu.hat0) %*% solve(sigma.hat.p) %*% (obs1 - mu.hat0)
+  D1 <- t(obs1 - mu.hat1) %*% solve(sigma.hat.p) %*% (obs1 - mu.hat1)
+  data.frame(D0, D1)
+
+  #Posterior probabilities
+  prob0 <- exp(-0.5*D0)/(exp(-0.5*D0)+exp(-0.5*D1))
+  prob1 <- exp(-0.5*D1)/(exp(-0.5*D0)+exp(-0.5*D1))
+  data.frame(prob0, prob1) #matches
+
+
+################################################################################
+# LDA using cross-validation
+
+  DA2 <- lda(formula = good ~ week + distance + change + elap30 + PAT + type + field + wind,
+    data = placekick, CV = TRUE, prior = c(1,1)/2)
+  #DA2  #Don't print this! There is no nice summary printed
+  summary(DA2)
+  names(DA2)
+  class(DA2)  #No class is used! This is the default saying a list is returned
+  head(DA2$class)
+  head(DA2$posterior)
+
+  # temp <- predict(object = DA2) #Does not work for cross-validation
+
+  
+################################################################################
+# Accuracy
+
+  summarize.class <- function(original, classify) {
+    class.table <- table(original, classify)
+    numb <- rowSums(class.table)
+    prop <- round(class.table/numb,4)
+    overall <- round(sum(diag(class.table))/sum(class.table),4)
+    list(class.table = class.table, prop = prop, overall.correct = overall)
+  }
+
+  summarize.class(original = placekick$good, classify = DA2$class)
+  #  summarize.class(original = placekick$good, classify = pred.resub$class)
+
+  #Validation data
+  pred.valid <- predict(object = DA1, newdata = valid)
+  head(pred.valid$posterior)
+  summarize.class(original = valid$good, classify = pred.valid$class)
+
+  
+################################################################################
+# Prior probabilities equal to proportion observed
+
+  mean(placekick$good) #Proportion from each population
+  #aggregate(formula = good ~ 1, data = placekick, FUN = mean)
+
+  DA3 <- lda(formula = good ~ week + distance + change + elap30 + PAT + type + field + wind,
+    data = placekick, CV = FALSE)
+  DA4 <- lda(formula = good ~ week + distance + change + elap30 + PAT + type + field + wind,
+    data = placekick, CV = TRUE)
+  head(DA4$posterior)
+
+  #Cross-validation
+  summarize.class(original = placekick$good, classify = DA4$class)
+
+  #Validation data
+  pred.valid3 <- predict(object = DA3, newdata = valid)
+  head(pred.valid3$posterior)
+  summarize.class(original = valid$good, classify = pred.valid3$class)
+
+
+################################################################################
+# QDA using cross-validation
+
+  options(width = 60)
+  
+  DA5 <- qda(formula = good ~ week + distance + change + elap30 + PAT + type + field + wind,
+    data = placekick, CV = FALSE)
+  DA5
+  DA6 <- qda(formula = good ~ week + distance + change + elap30 + PAT + type + field + wind,
+    data = placekick, CV = TRUE)
+  names(DA5)
+  names(DA6)
+  head(DA6$posterior)
+  
+  class(DA5)
+  methods(class = "qda")
+  class(DA6)
+
+  #Cross-validation
+  summarize.class(original = placekick$good, classify = DA6$class)
+
+  #Validation data
+  pred.valid5 <- predict(object = DA5, newdata = valid)
+  head(pred.valid5$posterior)
+  summarize.class(original = valid$good, classify = pred.valid5$class)
+
+
+################################################################################
+# Use plots to examine the classifications
+
+  predict.color <- ifelse(test = DA4$class == 1, yes = "red", no = "black")
+
+  plot(x = score.cor[,1], y = score.cor[,2], xlab = "PC #1", ylab = "PC #2",
+    main = "Principal components \n Plotting point corresponds to classifications",
+    xlim = common.limits, ylim = common.limits, panel.first = grid(col = "lightgray", lty = "dotted"),
+    col = predict.color)
+  abline(h = 0)
+  abline(v = 0)
+  legend(x = -3, y = -2, legend = c("Success", "Failure"), col = c("red", "black"), bty = "n",
+    pch = c(1,1))
+
+  pred.good <- DA4$class == 1
+  plot3d(x = score.cor[,1], y = score.cor[,2], z = score.cor[,3], xlab = "PC #1", ylab = "PC #2", zlab =
+    "PC #3", type = "h", xlim = common.limits, ylim = common.limits)
+  plot3d(x = score.cor[pred.good,1], y = score.cor[pred.good,2], z = score.cor[pred.good,3], add = TRUE,
+    col = "red", size = 6)
+  plot3d(x = score.cor[!pred.good,1], y = score.cor[!pred.good,2], z = score.cor[!pred.good,3],
+    add = TRUE, col = "black", size = 6)
+  persp3d(x = common.limits, y = common.limits, z = matrix(data = c(0,0,0,0), nrow = 2, ncol = 2), add
+    = TRUE, col = "green") #Plane
+  grid3d(side = c("x", "y", "z"), col = "lightgray")
+
+  xtabs(formula = ~ PAT + good, data = placekick)
+  table(placekick$PAT, placekick$good)
+
+################################################################################
+#Show how to form a training data set and a validation data set
+
+  #First, put the current model building and validation data into one data frame
+  # as would actually have occurred in practice
+  all.data <- rbind(placekick, valid)
+  N.all <- nrow(all.data)
+
+  #Obtain observation numbers
+  set.seed(9819)
+  obs.numb1 <- sample.int(n = N.all, size = round(N.all*0.8))
+  obs.numb2 <- (1:N.all)[-obs.numb]
+
+  #Find training and validation data
+  placekick1 <- all.data[obs.numb1,]
+  placekick2 <- all.data[obs.numb2,]
+  nrow(placekick1)
+  nrow(placekick2)
+
+  head(placekick1)
+  head(placekick2)
+
+
+
+
+#
