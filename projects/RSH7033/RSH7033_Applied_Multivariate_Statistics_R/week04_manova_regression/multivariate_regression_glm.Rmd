@@ -1,1 +1,32 @@
+---
+title: "RSH7033 – Applied Multivariate Statistics"
+subtitle: "Week 4: Multivariate Regression and Generalized Linear Models."
+author: "Dr. Gonsalge Almeida – Trine University."
+output: html_document
+---
 
+# Introduction
+
+This lab demonstrates how **generalized linear models (GLMs)** can be used to analyze multivariate environmental data.
+
+We will examine environmental factors associated with the **presence or absence of the Southern Corroboree frog**, a critically endangered species.
+
+Learning objectives:
+
+- Fit logistic regression models
+- Evaluate multicollinearity
+- Perform model selection
+- Conduct model diagnostics
+- Interpret results
+
+---
+
+# Load Required Packages
+```{r}
+library(DAAG)
+library(car)
+library(MuMIn)
+library(glmnet)
+library(statmod)
+library(faraway)
+library(shrink)
