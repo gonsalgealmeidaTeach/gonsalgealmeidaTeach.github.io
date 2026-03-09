@@ -1,0 +1,216 @@
+# PCA for the goblet data
+
+  goblet <- read.csv(file = "C:\\data2\\goblet.csv")
+
+  goblet2 <- data.frame(ID = goblet$goblet, w1 = goblet$x1/goblet$x3, w2 = goblet$x2/goblet$x3,
+                                   w4 = goblet$x4/goblet$x3, w5 = goblet$x5/goblet$x3,
+                                   w6 = goblet$x6/goblet$x3)
+  head(goblet2)
+
+
+################################################################################
+# Plots
+
+  dev.new(width = 11, height = 7)
+  #Stars plot; The "-1" index is a quick way to remove the first column here
+  #  I used the labels argument because the goblet numbers were not included
+  stars(x = goblet2[,-1], draw.segments = TRUE, key.loc = c(14,10), main = "Goblet star plot",
+    labels = goblet2$ID)
+
+  library(MASS)
+  parcoord(x = goblet2[,-1], main = "Goblet parallel coordinate plot")
+
+  col.w5 <- ifelse(test = goblet2$w5 <= median(goblet2$w5), yes = "red", no = "blue")
+  parcoord(x = goblet2[,-1], col = col.w5, main = "Goblet parallel coordinates plot")
+
+  # library(iplots)
+  # ipcp(vars = goblet2[,-1])
+
+
+
+################################################################################
+# PCA with covariance matrix
+
+  mu.hat <- colMeans(goblet2[,-1])
+  mu.hat
+
+  pca.cov <- princomp(formula = ~ w1 + w2 + w4 + w5 + w6, data = goblet2, cor = FALSE)
+  pca.cov
+  names(pca.cov) #What's inside pca.cov?
+  class(pca.cov)
+  #Method functions for objects of class princomp
+  methods(class = princomp)
+
+  options(width = 60) #Helpful for my notes
+  summary(pca.cov, loadings = TRUE, cutoff = 0.0)
+
+  # Orthogonal vectors
+  sum(pca.cov$loadings[,1] * pca.cov$loadings[,2])
+  # Length of 1 vectors
+  sqrt(sum(pca.cov$loadings[,1]^2))
+
+  # PC scores
+  score.cor2 <- pca.cov$scores
+  head(score.cor2)
+  goblet2[1,]
+  sum(pca.cov$loadings[,1]*(goblet2[1,-1] - mu.hat))
+  # The predict function can be used as well
+  head(predict(pca.cov))
+
+  # Suppose a new goblet was found. Here's how the PC scores can be calculated.
+  goblet2[1,] # To make this easy, let's use the first observation values
+  pred.set <- data.frame(w1 = 0.5652174, w2 = 0.9130435, w4 = 0.6086957,
+    w5 = 0.3043478, w6 = 0.3478261)
+  predict(object = pca.cov, newdata = pred.set)
+
+
+  # Scree plot
+  plot(pca.cov, type = "lines", main = "Scree plot for cereal data")
+  screeplot(pca.cov, type = "lines")
+
+
+  #Compare eigenvalues of the unbiased and biased estimated covariance matrices
+  eig1 <- eigen(cov(goblet2[,-1]))
+  sqrt(eig1$values)
+  N <- nrow(goblet2)
+  eig2 <- eigen(cov(goblet2[,-1])*(N-1)/N)
+  sqrt(eig2$values)
+  #There is not an easy fix to get the unbiased version of the estimated covariance
+  # to be used by princomp(). One could simply use eigen() instead to obtain the necessary
+  # quantities if using the unbiased version was VERY important. Otherwise, one could create a
+  # new version of the princomp() function (based on the original function) where the
+  # unbiased version of the covariance matrix is used instead.
+
+  options(width = 80)
+
+  #Just use the scores from princomp() because I am using the biased covariance matrix
+
+  #Scatter plot of first two PCs
+  par(pty = "s")
+  common.limits <- c(min(score.cor2[,1:2]), max(score.cor2[,1:2]))
+  plot(x = score.cor2[,1], y = score.cor2[,2], xlab = "PC #1", ylab = "PC #2", main = "Principal components",
+    xlim = common.limits, ylim = common.limits, panel.first = grid(col = "lightgray", lty = "dotted"))
+  abline(h = 0)
+  abline(v = 0)
+  text(x = score.cor2[,1], y = score.cor2[,2]+0.03)
+
+  #Bubble plot of first three PCs
+  summary(score.cor2[,3])
+  PC3.positive2 <- score.cor2[,3] - min(score.cor2[,3])  #Bubble needs to contain all values > 0
+  symbols(x = score.cor2[,1], y = score.cor2[,2], circles = PC3.positive2,
+    xlab = "PC #1", ylab = "PC #2", main = "Principal components", inches = 0.5,
+    xlim = common.limits, ylim = common.limits, panel.first = grid(col = "lightgray", lty = "dotted"))
+  text(x = score.cor2[,1], y = score.cor2[,2])
+  abline(h = 0)
+  abline(v = 0)
+
+  #Different colors for positive and negative PC #3
+  col.symbol <- ifelse(test = score.cor2[,3]>0, yes = "red", no = "blue")
+  symbols(x = score.cor2[,1], y = score.cor2[,2], circles = PC3.positive2,
+    xlab = "PC #1", ylab = "PC #2", main = "Principal components", inches = 0.5,
+    xlim = common.limits, ylim = common.limits, panel.first = grid(col = "lightgray", lty = "dotted"),
+    fg = col.symbol)
+  text(x = score.cor2[,1], y = score.cor2[,2])
+  abline(h = 0)
+  abline(v = 0)
+
+  #3D plot
+  library(rgl)
+  plot3d(x = score.cor2[,1], y = score.cor2[,2], z = score.cor2[,3], xlab = "PC #1", ylab = "PC #2",
+    zlab = "PC #3", type = "h", xlim = common.limits, ylim = common.limits)
+  plot3d(x = score.cor2[,1], y = score.cor2[,2], z = score.cor2[,3], add = TRUE, col = "red", size = 6)
+  persp3d(x = common.limits, y = common.limits,
+    z = matrix(data = c(0,0,0,0), nrow = 2, ncol = 2), add = TRUE, col = "green")
+  grid3d(side = c("x", "y", "z"), col = "lightgray")
+  text3d(x = score.cor2[,1], y = score.cor2[,2], z = score.cor2[,3]+0.02, text = 1:nrow(goblet2))
+
+
+  #Alternative way to get different color symbols corresponding to positive or negative 3rd PC value
+  col.symbol <- ifelse(test = score.cor2[,3]>0, yes = "red", no = "blue")
+  symbols(x = score.cor2[,1], y = score.cor2[,2], circles = PC3.positive,
+    xlab = "PC #1", ylab = "PC #2", main = "Principal components", inches = 0.5,
+    xlim = common.limits, ylim = common.limits, panel.first = grid(col = "lightgray", lty = "dotted"),
+    fg = col.symbol)
+  text(x = score.cor2[,1], y = score.cor2[,2])
+  abline(h = 0)
+  abline(v = 0)
+
+
+
+################################################################################
+# PCA with correlation matrix
+
+  apply(X = goblet2[,-1], MARGIN = 2, FUN = var)
+
+  pca.cor <- princomp(formula = ~ w1 + w2 + w4 + w5 + w6, data = goblet2, cor = TRUE,
+    scores = FALSE)
+  options(width = 60) #Helpful for my notes
+  summary(pca.cor, loadings = TRUE, cutoff = 0.0)
+
+  # Fix issue with 1/N vs. 1/(N-1)
+  pca.cor$scale <- apply(X = goblet2[,-1], MARGIN = 2, FUN = sd)
+  score.cor <- predict(pca.cor, newdata = goblet2)
+  head(score.cor)
+  
+  options(width = 80)
+
+  #Scatter plot of first two PCs
+  par(pty = "s")
+  common.limits <- c(min(score.cor[,1:2]), max(score.cor[,1:2]))
+  plot(x = score.cor[,1], y = score.cor[,2], xlab = "PC #1", ylab = "PC #2", main = "Principal components",
+    xlim = common.limits, ylim = common.limits, panel.first = grid(col = "lightgray", lty = "dotted"))
+  abline(h = 0)
+  abline(v = 0)
+  text(x = score.cor[,1], y = score.cor[,2]+0.2)
+
+  #Bubble plot of first three PCs
+  summary(score.cor[,3])
+  PC3.positive <- score.cor[,3] - min(score.cor[,3])  #Bubble needs to contain all values > 0
+  symbols(x = score.cor[,1], y = score.cor[,2], circles = PC3.positive,
+    xlab = "PC #1", ylab = "PC #2", main = "Principal components", inches = 0.5,
+    xlim = common.limits, ylim = common.limits, panel.first = grid(col = "lightgray", lty = "dotted"))
+  text(x = score.cor[,1], y = score.cor[,2])
+  abline(h = 0)
+  abline(v = 0)
+  
+  #Different colors for positive and negative PC #3
+  col.symbol <- ifelse(test = score.cor[,3]>0, yes = "red", no = "blue")
+  symbols(x = score.cor[,1], y = score.cor[,2], circles = PC3.positive,
+    xlab = "PC #1", ylab = "PC #2", main = "Principal components", inches = 0.5,
+    xlim = common.limits, ylim = common.limits, panel.first = grid(col = "lightgray", lty = "dotted"),
+    fg = col.symbol)
+  text(x = score.cor[,1], y = score.cor[,2])
+  abline(h = 0)
+  abline(v = 0)
+
+  #3D plot
+  library(rgl)
+  plot3d(x = score.cor[,1], y = score.cor[,2], z = score.cor[,3], xlab = "PC #1", ylab = "PC #2",
+    zlab = "PC #3", type = "h", xlim = common.limits, ylim = common.limits)
+  plot3d(x = score.cor[,1], y = score.cor[,2], z = score.cor[,3], add = TRUE, col = "red", size = 6)
+  persp3d(x = common.limits, y = common.limits, z = matrix(data = c(0,0,0,0), nrow = 2, ncol = 2),
+    add = TRUE, col = "green") #Put a plane on the plot
+  grid3d(side = c("x", "y", "z"), col = "lightgray")
+  text3d(x = score.cor[,1], y = score.cor[,2], z = score.cor[,3] + 0.2, text = 1:nrow(goblet2))
+
+  #3D plot - use PC #1 as z-axis to better highlight it
+  library(rgl)
+  plot3d(x = score.cor[,2], y = score.cor[,3], z = score.cor[,1], xlab = "PC #2", ylab = "PC #3",
+    zlab = "PC #1", type = "h", xlim = common.limits, ylim = common.limits)
+  plot3d(x = score.cor[,2], y = score.cor[,3], z = score.cor[,1], add = TRUE, col = "red", size = 6)
+  persp3d(x = common.limits, y = common.limits, z = matrix(data = c(0,0,0,0), nrow = 2, ncol = 2),
+    add = TRUE, col = "green") #Put a plane on the plot
+  grid3d(side = c("x", "y", "z"), col = "lightgray")
+  text3d(x = score.cor[,2], y = score.cor[,3], z = score.cor[,1] + 0.2, text = 1:nrow(goblet2))
+
+
+
+
+####################################################################################################################
+# Biplot - This is an alternative plot to plotting PC scores like how I did previously
+#  My preference is to use the previous plots
+
+  #biplot() needs the scores to be within the object from princomp().
+  #  This means that the score calculations will not be exactly the same as those in the notes.
+  pca.cor2 <- princomp(formula = ~ w1 + w2 + w4 + w5 + w6, data = goblet2, cor = TRUE, scores = TRUE)
+  biplot(x = pca.cor2, main = "Biplot for goblet data", pc.biplot = TRUE, var.axes = TRUE)
