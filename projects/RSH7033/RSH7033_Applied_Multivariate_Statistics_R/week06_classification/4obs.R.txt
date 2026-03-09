@@ -1,0 +1,98 @@
+#  Simple set of data to examine how knn() and knn.cv() work
+
+
+  set1 <- data.frame(x1  = c(0, 0, 1, 1),
+                   x2  = c(0, 1, 0, 1),
+                   pop = c(1, 1, 2, 2))
+  set1
+
+  plot(x = set1$x1, y = set1$x2, xlab = expression(x[1]), ylab = expression(x[2]),
+    panel.first = grid(), xlim = c(-0.5, 1.5), ylim = c(-0.5, 1.5), pch = set1$pop,
+    col = set1$pop) #Colors 1 and 2 are black and red, respectively
+  legend(x = 0, y = 1.5, legend = c("Pop. #1", "Pop. #2"), col = c(1, 2),
+    pch = c(1, 2), bty = "n", ncol = 2)
+  text(x = set1$x1, y = set1$x2 + 0.1, labels = 1:nrow(set1))
+
+  dist.mat <- dist(x = set1[,-3], method = "euclidean")
+  dist.mat
+
+
+################################################################################
+# knn()
+
+  library(class)
+  NNC1 <- knn(train = set1[,-3], test = set1[,-3], cl = set1[,3], k = 1, prob = TRUE)
+  NNC1
+  names(NNC1) #Does not work
+  class(NNC1)
+  attributes(NNC1)
+  attributes(NNC1)$prob
+  data.frame(set1, classification = NNC1)
+
+  NNC2 <- knn(train = set1[,-3], test = set1[,-3], cl = set1[,3], k = 2, prob = TRUE)
+  NNC2
+
+  NNC3 <- knn(train = set1[,-3], test = set1[,-3], cl = set1[,3], k = 3, prob = TRUE)
+  NNC3
+
+  #set.seed(9129) #The seed number should be set in practice
+  NNC4 <- knn(train = set1[,-3], test = set1[,-3], cl = set1[,3], k = 4, prob = TRUE)
+  NNC4
+
+
+################################################################################
+# knn.cv()
+
+  #set.seed(8717) #The seed number should be set in practice
+  NNC1.cv <- knn.cv(train = set1[,-3], cl = set1[,3], k = 1, prob = TRUE)
+  NNC1.cv
+
+  #set.seed(8717) #The seed number should be set in practice
+  NNC2.cv <- knn.cv(train = set1[,-3], cl = set1[,3], k = 2, prob = TRUE)
+  NNC2.cv
+
+  NNC3.cv <- knn.cv(train = set1[,-3], cl = set1[,3], k = 3, prob = TRUE)
+  NNC3.cv
+
+  #Does not make sense to use because the data set has 4 observations only
+  NNC4.cv <- knn.cv(train = set1[,-3], cl = set1[,3], k = 4, prob = TRUE)
+  NNC4.cv
+
+
+################################################################################
+# knn() test case with validation data
+
+  add.numb <- 0.6
+  valid <- data.frame(x1  = c(0, 0, 1, 1) + add.numb,
+                   x2  = c(0, 1, 0, 1) + add.numb,
+                   pop = c(1, 1, 2, 2))
+  valid
+
+  plot(x = set1$x1, y = set1$x2, xlab = expression(x[1]), ylab = expression(x[2]),
+    panel.first = grid(), xlim = c(-0.5, 2), ylim = c(-0.5, 2), pch = set1$pop,
+    col = set1$pop) #Colors 1 and 2 are black and red, respectively
+  points(valid$x1, y = valid$x2, col = valid$pop, pch = valid$pop)
+  legend(x = 0, y = 1.5, legend = c("Pop. #1", "Pop. #2"), col = c(1, 2),
+    pch = c(1, 2), bty = "n", ncol = 2)
+  text(x = set1$x1, y = set1$x2 + 0.1, labels = 1:nrow(set1))
+
+  NNC1 <- knn(train = set1[,-3], test = valid[,-3], cl = set1[,3], k = 1, prob = TRUE)
+  NNC1
+  points(valid$x1, y = valid$x2, col = as.numeric(NNC1), pch = as.numeric(NNC1), cex = 1.5)
+
+  summarize.class <- function(original, classify) {
+    class.table <- table(original, classify)
+    numb <- rowSums(class.table)
+    prop <- round(class.table/numb,4)
+    overall <- round((class.table[1,1] + class.table[2,2])/sum(class.table),4)
+    list(class.table = class.table, prop = prop, overall.correct = overall)
+  }
+
+  summarize.class(original = valid[,3], classify = NNC1)
+
+
+
+
+
+
+#

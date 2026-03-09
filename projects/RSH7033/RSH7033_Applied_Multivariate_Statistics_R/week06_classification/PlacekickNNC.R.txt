@@ -1,0 +1,180 @@
+# NNC with the placekicking data
+
+placekick <- read.csv(file = "Placekick.csv")
+head(placekick)
+valid <- read.csv(file = "valid.csv")
+head(valid)
+
+#All missed placekicks
+miss.v <- valid[valid$good == 0,]
+miss.v[order(miss.v$distance),] #Sort by distance
+
+Z <- scale(placekick[,-9])
+#head(Z)
+
+# Calculate means and standand deviations for the variables
+colMeans(placekick[,-9])
+colMeans(valid[,-9])
+apply(X = placekick[,-9], MARGIN = 2, FUN = sd)
+apply(X = valid[,-9], MARGIN = 2, FUN = sd)
+#Standardize the validation data using placekick means and standard deviations
+Z.v <- scale(valid[,-9], center = colMeans(placekick[,-9]), scale = apply(X = placekick[,-9], MARGIN = 2, FUN = sd) )
+head(Z.v) #Type is a little different otherwise the other variables are similar to what had before
+
+# If I use the mean and standard deviation from the validation data
+#  to standardize the validation data:
+# Z.v <- scale(valid[,-9])
+# head(Z.v)
+
+################################################################################
+# K = 1
+
+  library(class)
+
+  set.seed(7812)
+  NNC1 <- knn(train = Z, test = Z.v, cl = placekick[,9], k = 1, prob = TRUE)
+  head(NNC1)
+  
+  set.seed(6615)
+  NNC1.cv <- knn.cv(train = Z, cl = placekick[,9], k = 1, prob = TRUE)
+  head(NNC1.cv)
+
+  summarize.class <- function(original, classify) {
+    class.table <- table(original, classify)
+    numb <- rowSums(class.table)
+    prop <- round(class.table/numb,4)
+    overall <- round(sum(diag(class.table))/sum(class.table),4)
+    list(class.table = class.table, prop = prop, overall.correct = overall)
+  }
+
+  summarize.class(original = valid[,9], classify = NNC1)
+  summarize.class(original = placekick[,9], classify = NNC1.cv)
+
+
+################################################################################
+# Invesigate a number of values for K
+
+  set.seed(4511)
+  save.results <- matrix(data = NA, nrow = 10, ncol = 4)
+  save.results.cv <- matrix(data = NA, nrow = 10, ncol = 4)
+  for (K in 1:10) {
+    NNC <- knn(train = Z, test = Z.v, cl = placekick[,9], k = K)
+    NNC.cv <- knn.cv(train = Z, cl = placekick[,9], k = K)
+    NNC.accuracy <- summarize.class(original = valid[,9], classify = NNC)
+    NNC.cv.accuracy <- summarize.class(original = placekick[,9], classify = NNC.cv)
+    
+    #Column #1 = K, Column #2 = (0,0), Column #3 = (1,1), Column #4 = overall
+    save.results[K,] <- c(K, NNC.accuracy$prop[1,1], NNC.accuracy$prop[2,2], NNC.accuracy$overall.correct)
+    save.results.cv[K,] <- c(K, NNC.cv.accuracy$prop[1,1], NNC.cv.accuracy$prop[2,2], NNC.cv.accuracy$overall.correct)
+  }
+
+  save.results
+  save.results.cv
+
+  dev.new(width = 10)
+  par(mfrow = c(1,2))
+  plot(x = save.results[,1], y = save.results[,2], ylim = c(0, 1), main = "Validation data",
+    panel.first = grid(), type = "o", col = "red", xlab = "K", ylab = "Accuracy")
+  points(x = save.results[,1], y = save.results[,3], ylim = c(0, 1), type = "o", col = "blue")
+  points(x = save.results[,1], y = save.results[,4], ylim = c(0, 1), type = "o", col = "black")
+  abline(h = 0.8546, lty = "dashed", col = "black") #Best overall from LDA and QDA, lty = "dashed" is line type #2
+  legend(x = 5, y = 0.8, legend = c("Correct failures", "Correct successes", "Correct overall", "Correct overall LDA"),
+    col = c("red", "blue", "black", "black"), bty = "n", cex = 0.75, lty = c(1,1,1,2), pch = c(1,1,1,NA))
+
+  plot(x = save.results.cv[,1], y = save.results.cv[,2], ylim = c(0, 1), main = "Cross-validation",
+    panel.first = grid(), type = "o", col = "red", xlab = "K", ylab = "Accuracy")
+  points(x = save.results.cv[,1], y = save.results.cv[,3], ylim = c(0, 1), type = "o", col = "blue")
+  points(x = save.results.cv[,1], y = save.results.cv[,4], ylim = c(0, 1), type = "o", col = "black")
+  abline(h = 0.8737, lty = "dashed", col = "darkgreen") #Best overall from LDA and QDA, lty = "dashed" is line type #2
+  legend(x = 5, y = 0.8, legend = c("Correct failures", "Correct successes", "Correct overall", "Correct overall LDA"),
+    col = c("red", "blue", "black", "black"), bty = "n", cex = 0.75, lty = c(1,1,1,2), pch = c(1,1,1,NA))
+
+
+################################################################################
+# Use plots to examine the classifications
+# Using K = 4 and the cross-validation results for demonstration purposes
+
+  ####################
+  #Cross-validation
+  set.seed(1211)
+  NNC.cv <- knn.cv(train = Z, cl = placekick[,9], k = 4)
+  summarize.class(original = placekick[,9], classify = NNC.cv)
+
+  pca.cor <- princomp(formula = ~ week + distance + change + elap30 + PAT + type + field + wind,
+    data = placekick, cor = TRUE, scores = TRUE)
+  summary(pca.cor, loadings = TRUE, cutoff = 0.0) #44% with 2PCs, 58% with 3PCs (about same as with placekick)
+  pca.cor$scale <- apply(X = placekick[,-9], MARGIN = 2, FUN = sd)
+  score.cor <- predict(pca.cor, newdata = placekick)
+  common.limits <- c(min(score.cor[,1:2]), max(score.cor[,1:2]))
+
+  predict.color <- ifelse(test = NNC.cv == 1, yes = "red", no = "black")
+
+  dev.new()
+  plot(x = score.cor[,1], y = score.cor[,2], xlab = "PC #1", ylab = "PC #2",
+    main = "Principal components \n Plotting point corresponds to cross-validation classifications",
+    xlim = common.limits, ylim = common.limits, panel.first = grid(col = "lightgray", lty = "dotted"),
+    col = predict.color)
+  abline(h = 0)
+  abline(v = 0)
+  legend(x = -3, y = -2, legend = c("Success", "Failure"), col = c("red", "black"), bty = "n",
+    pch = c(1,1))
+
+  library(rgl)
+  pred.good <- NNC.cv == 1
+  plot3d(x = score.cor[,1], y = score.cor[,2], z = score.cor[,3], xlab = "PC #1",
+         ylab = "PC #2", zlab = "PC #3", type = "h", xlim = common.limits,
+         ylim = common.limits)
+  plot3d(x = score.cor[pred.good,1], y = score.cor[pred.good,2], z = score.cor[pred.good,3], add = TRUE,
+    col = "red", size = 6)
+  plot3d(x = score.cor[!pred.good,1], y = score.cor[!pred.good,2], z = score.cor[!pred.good,3],
+    add = TRUE, col = "black", size = 6)
+  persp3d(x = common.limits, y = common.limits, z = matrix(data = c(0,0,0,0), nrow = 2, ncol = 2), add
+    = TRUE, col = "green") #Plane
+  grid3d(side = c("x", "y", "z"), col = "lightgray")
+
+
+
+  ####################
+  #Validation data
+  set.seed(8187)
+  NNC <- knn(train = Z, test = Z.v, cl = placekick[,9], k = 4, prob = TRUE)
+  summarize.class(original = valid[,9], classify = NNC)
+
+  # Need to apply scoring from original PCA rather than do a new PCA
+  score.cor.v <- predict(object = pca.cor, newdata = valid)
+  head(score.cor.v)
+
+  common.limits.v <- c(min(score.cor.v[,1:2],score.cor[,1:2]), max(score.cor.v[,1:2], score.cor[,1:2]))
+  predict.color.v <- ifelse(test = NNC == 1, yes = "red", no = "black")
+
+  dev.new()
+  plot(x = score.cor.v[,1], y = score.cor.v[,2], xlab = "PC #1", ylab = "PC #2",
+    main = "Principal components \n Plotting point corresponds to validation data classifications",
+    xlim = common.limits.v, ylim = common.limits.v, panel.first = grid(col = "lightgray", lty = "dotted"),
+    col = predict.color.v)
+  abline(h = 0)
+  abline(v = 0)
+  legend(x = -3, y = -2, legend = c("Success", "Failure"), col = c("red", "black"), bty = "n",
+    pch = c(1,1))
+
+  library(rgl)
+  pred.good.v <- NNC == 1
+  plot3d(x = score.cor.v[,1], y = score.cor.v[,2], z = score.cor.v[,3], xlab = "PC #1",
+         ylab = "PC #2", zlab = "PC #3", type = "h", xlim = common.limits.v,
+         ylim = common.limits.v)
+  plot3d(x = score.cor.v[pred.good.v,1], y = score.cor.v[pred.good.v,2], z = score.cor.v[pred.good.v,3], add = TRUE,
+    col = "red", size = 6)
+  plot3d(x = score.cor.v[!pred.good.v,1], y = score.cor.v[!pred.good.v,2], z = score.cor.v[!pred.good.v,3],
+    add = TRUE, col = "black", size = 6)
+  persp3d(x = common.limits.v, y = common.limits.v, z = matrix(data = c(0,0,0,0), nrow = 2, ncol = 2), add
+    = TRUE, col = "green") #Plane
+  grid3d(side = c("x", "y", "z"), col = "lightgray")
+
+
+
+
+
+
+
+
+#
