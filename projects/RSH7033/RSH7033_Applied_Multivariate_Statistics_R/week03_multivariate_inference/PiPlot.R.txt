@@ -1,0 +1,35 @@
+# Plot of the regression model
+
+#####################################################################
+# Because the curve() function plays an important role in the
+# example, below is a simple use of it for y = x^2
+
+  dev.new(width = 7, height = 6, pointsize = 12)
+  curve(expr = x^2, xlim = c(-1, 2), col = "red",
+      main = "Plot of f(x) = x^2", xlab =  "x",
+      ylab = "f(x)", panel.first = grid(col = "gray", lty = "dotted"))
+
+
+#####################################################################
+# Logistic regression model plot
+
+  dev.new(width = 8, height = 6, pointsize = 12)
+  # pdf(file = "c:\\figures\\Figure2.1BW.pdf", width = 7, height = 6, colormodel = "cmyk")   # Create plot for book
+  par(mfrow = c(1,2))
+  # par(pty="s") #Create square plots
+
+  beta0 <- 1
+  beta1 <- 0.5
+  curve(expr = exp(beta0+beta1*x)/(1+exp(beta0+beta1*x)), xlim = c(-15, 15), col = "black",
+      main = expression(beta[1] == 0.5), xlab =  expression(x[1]),
+      ylab = expression(pi))
+
+  beta0 <- 1  # Could just rely on previous
+  beta1 <- -0.5
+  curve(expr = exp(beta0+beta1*x)/(1+exp(beta0+beta1*x)), xlim = c(-15, 15), col = "black",
+      main = expression(beta[1] == -0.5), xlab =  expression(x[1]),
+      ylab = expression(pi))
+
+
+
+#
