@@ -1,0 +1,63 @@
+# Cereal data, initial examination
+
+######################################################################
+# Read in data
+
+  cereal <- read.csv(file = "c:\\data\\cereal.csv")
+
+  # options(width = 60) # Adjust width for notes
+  head(cereal) # Shows first 6 observations
+  tail(cereal) # Shows last 6 observations
+
+  #Adjust data to take into account the different serving sizes
+  cereal$sugar <- cereal$sugar_g/cereal$size_g
+  cereal$fat <- cereal$fat_g/cereal$size_g
+  cereal$sodium <- cereal$sodium_mg/cereal$size_g
+
+  head(cereal) #Shows first 6 observations
+
+
+######################################################################
+# Summary statistics
+
+  # Estimated covariance and correlation matrices
+  sigma.hat <- cov(cereal[, 8:10])
+  R <- cor(cereal[, 8:10])
+  sigma.hat
+  R
+  
+  # Alternative way to find R
+  cov2cor(sigma.hat)
+
+  # Estimated mean vector
+  mu.hat <- colMeans(cereal[, 8:10])
+  mu.hat
+  
+  # Alternative way to find mu.hat
+  apply(X = cereal[, 8:10], MARGIN = 2, FUN = mean)
+  
+  # Equivalent way to obtain covariance matrix
+  X <- as.matrix(cereal[,8:10])
+  X.tilde <- t(t(X) - mu.hat)
+  N <- nrow(X)
+  t(X.tilde)%*%X.tilde/(N-1)
+
+######################################################################
+# Standardize
+
+  Z <- scale(cereal[,8:10])
+  head(Z)
+  cov(Z)
+  cor(Z)
+  colMeans(Z)
+  
+  # Check for sugar
+  z.sugar <- (cereal$sugar - mean(cereal$sugar))/sd(cereal$sugar)
+  mean(z.sugar)
+  sd(z.sugar)
+
+
+
+
+
+#
