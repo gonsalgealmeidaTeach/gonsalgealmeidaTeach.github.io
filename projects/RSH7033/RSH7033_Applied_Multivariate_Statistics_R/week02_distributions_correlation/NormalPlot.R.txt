@@ -1,242 +1,59 @@
-# Plot of normal distribution
+############################################################
+# Course: RSH7033 – Applied Multivariate Statistics
+# Week 2: Multivariate Normal Distribution
+# Description:
+# Visualization and interpretation of univariate and
+# multivariate normal distributions.
+############################################################
 
+source("setup/install_packages.R")
 
-#####################################################################
-# One variable
+############################################################
+# 1. Univariate Normal Distribution
+############################################################
 
-  # Example of how to use curve() for f(x) = x^2 plot
-  curve(expr = x^2, xlim = c(-2,4))
+curve(dnorm(x, mean = 50, sd = 3),
+      xlim = c(40, 60),
+      col = "red",
+      main = "Univariate Normal Distribution")
 
-  # Normal distribution
-  curve(expr = dnorm(x = x, mean = 50, sd = 3), xlim = c(40, 60),
-    col = "red", xlab = "x", ylab = "f(x)", main = "Univariate normal distribution")
-  dnorm(x = c(40, 50, 60), mean = 50, sd = 3)
-  abline(h = 0)
+# Interpretation:
+# Peak at mean (50), spread controlled by standard deviation
 
-#####################################################################
-# Two variables - original set of plots
+############################################################
+# 2. Multivariate Normal Setup
+############################################################
 
-  library(rgl)  # Needed for 3D plot
-  library(mvtnorm) # Needed for dmvnorm()
+library(mvtnorm)
 
-  mu <- c(15, 20)
-  sigma <- matrix(data = c(1, 0.5, 0.5, 1.25), nrow = 2, ncol = 2, byrow = TRUE)
-  P <- cov2cor(V = sigma)
-  P
-  
-  # Example f(x) calculation at mean
-  dmvnorm(x = mu, mean = mu, sigma = sigma)
+mu <- c(15, 20)
+sigma <- matrix(c(1, 0.5, 0.5, 1.25), nrow = 2)
 
-  # Calculate f(x) for a large number of possible values for x1 and x2
-  x1 <- seq(from = 11, to = 19, by = 0.1)
-  x2 <- seq(from = 17, to = 23, by = 0.1)
-  all.x <- expand.grid(x1, x2) # Creates all possible combinations
-  head(all.x)  # N otice that x1 is changing faster than x2
-  eval.fx <- dmvnorm(x = all.x, mean = mu, sigma = sigma)
+cov2cor(sigma)
 
-  # Arrange values in the following form:
-  #          x2
-  #          17.0 17.1 17.2  ...
-  # x1 11.0  f(x) f(x) f(x)
-  #    11.1  f(x) f(x) f(x)
-  #    11.2  f(x) f(x) f(x)
-  #    ...
-  fx <- matrix(data = eval.fx, nrow = length(x1), ncol = length(x2), byrow = FALSE)
+############################################################
+# 3. Density Evaluation
+############################################################
 
-  # Check if f(x) values are arranged correctly
-  all.x[1:2,]
-  dmvnorm(x = all.x[1:2,], mean = mu, sigma = sigma)
-  fx[1:2, 1] # Part of column 1
-  dmvnorm(x = c(11.0, 17.1), mean = mu, sigma = sigma)
-  fx[1, 1:2] # Part of row 1
+dmvnorm(x = mu, mean = mu, sigma = sigma)
 
-  # Matrix *10^(-5)
-  #          x2
-  #          17.0 17.1 ...
-  # x1 11.0  3.24 3.56
-  #    11.1  4.57
-  #    ...
+# Interpretation:
+# Highest density occurs at the mean vector
 
-  # 3D plot
-  persp3d(x = x1, y = x2, z = fx, col = "green", xlab = "x1",
-    ylab = "x2", zlab = "f(x)", xlim = c(10,20), ylim = c(15, 25)) # expression() does not work with persp3d()
-  # Plane at f(x) = 0.14 - helps to see what the contour plot gives
-  # persp3d(x = c(10, 20), y = c(15,25), z = matrix(data = c(0.14, 0.14, 0.14, 0.14), nrow = 2, ncol = 2),
-  #    col = "blue", add = TRUE)
-  # Plane at f(x) = 0.12 - helps to see what the contour plot gives
-  # persp3d(x = c(10, 20), y = c(15,25), z = matrix(data = c(0.12, 0.12, 0.12, 0.12), nrow = 2, ncol = 2),
-  #    col = "red", add = TRUE)
+############################################################
+# 4. Contour Plot
+############################################################
 
+x1 <- seq(10, 25, by = 0.1)
+x2 <- seq(10, 25, by = 0.1)
 
-  # Contour plot - purposely made x and y-axes the same
-  #   length so that one can judge variability
-  par(pty = "s")
-  contour(x = x1, y = x2, z = fx, main = "Multivariate normal contour plot", xlab = expression(x[1]),
-    ylab = expression(x[2]), xlim = c(10,20), ylim = c(15, 25))
-  # panel.first = grid() does not work quite right so use abline()
-  abline(h = seq(from = 16, to = 24, by = 2), lty = "dotted", col = "lightgray")
-  abline(v = seq(from = 10, to = 20, by = 2), lty = "dotted", col = "lightgray")
+grid <- expand.grid(x1, x2)
+z <- dmvnorm(grid, mean = mu, sigma = sigma)
 
+z_matrix <- matrix(z, nrow = length(x1))
 
-#####################################################################
-# Two variables - more plots with same x1 and x2 range
+contour(x1, x2, z_matrix,
+        main = "Multivariate Normal Contours")
 
-  mu <- c(15, 20)
-  sigma <- matrix(data = c(1, 0.5, 0.5, 1.25), nrow = 2, ncol = 2, byrow = TRUE)
-  # sigma <- matrix(data = c(1, 0.5, 0.5, 3), nrow = 2, ncol = 2, byrow = TRUE)
-  # sigma <- matrix(data = c(1, 0, 0, 1.25), nrow = 2, ncol = 2, byrow = TRUE)
-  # sigma <- matrix(data = c(1, 0, 0, 1), nrow = 2, ncol = 2, byrow = TRUE)
-  # sigma <- matrix(data = c(1, 0.99, 0.99, 1), nrow = 2, ncol = 2, byrow = TRUE)
-  P <- cov2cor(V = sigma)
-  P
-
-  x1 <- seq(from = 10, to = 25, by = 0.1)
-  x2 <- seq(from = 10, to = 25, by = 0.1)
-  all.x <- expand.grid(x1, x2) # Creates all possible combinations
-  eval.fx <- dmvnorm(x = all.x, mean = mu, sigma = sigma)
-  fx <- matrix(data = eval.fx, nrow = length(x1), ncol = length(x2), byrow = FALSE)
-
-  persp3d(x = x1, y = x2, z = fx, col = "green", xlab = "x1",
-    ylab = "x2", zlab = "f(x)", xlim = c(10, 25), ylim = c(10,25), zlim = c(0, 0.16))
-  par(pty = "s")
-  contour(x = x1, y = x2, z = fx, main = substitute(paste("Multivariate normal with ", mu[1] == mean.value1,
-    ", ", mu[2] == mean.value2, ", and ", rho[12] == corr.value),
-    list(mean.value1 = mu[1], mean.value2 = mu[2], corr.value = round(P[1,2],2))),
-    xlab = expression(x[1]), ylab = expression(x[2]), levels = seq(from = 0.02, to = 0.16, by = 0.02),
-    xlim = c(10, 25), ylim = c(10,25))
-
-
-#####################################################################
-# Two variables - more plots with same x1 and x2 range (overlay plots)
-
-  mu <- c(15, 20)
-  sigma <- matrix(data = c(1, 0.5, 0.5, 3), nrow = 2, ncol = 2, byrow = TRUE)
-  P <- cov2cor(V = sigma)
-  P
-
-  x1 <- seq(from = 10, to = 25, by = 0.1)
-  x2 <- seq(from = 10, to = 25, by = 0.1)
-  all.x <- expand.grid(x1, x2) # Creates all possible combinations
-  eval.fx <- dmvnorm(x = all.x, mean = mu, sigma = sigma)
-  fx <- matrix(data = eval.fx, nrow = length(x1), ncol = length(x2), byrow = FALSE)
-
-  persp3d(x = x1, y = x2, z = fx, col = "blue", xlab = "x1",
-    ylab = "x2", zlab = "f(x)", xlim = c(10, 25), ylim = c(10,25), zlim = c(0, 0.16))
-  par(pty = "s")
-  contour(x = x1, y = x2, z = fx, main = "Multivariate normal contour plot",
-    xlab = expression(x[1]), ylab = expression(x[2]), levels = seq(from = 0.02, to = 0.16, by = 0.02),
-    xlim = c(10, 25), ylim = c(10,25), lty = "dotted")
-
-  sigma <- matrix(data = c(1, 0.5, 0.5, 1.25), nrow = 2, ncol = 2, byrow = TRUE)
-  P <- cov2cor(V = sigma)
-  P
-  all.x <- expand.grid(x1, x2) # Creates all possible combinations
-  eval.fx <- dmvnorm(x = all.x, mean = mu, sigma = sigma)
-  fx <- matrix(data = eval.fx, nrow = length(x1), ncol = length(x2), byrow = FALSE)
-
-  persp3d(x = x1, y = x2, z = fx, col = "green", xlab = "x1",
-    ylab = "x2", zlab = "f(x)", xlim = c(10, 25), ylim = c(10,25), zlim = c(0, 0.16), add = TRUE)
-  contour(x = x1, y = x2, z = fx, main = "Multivariate normal",
-    xlab = expression(x[1]), ylab = expression(x[2]), levels = seq(from = 0.02, to = 0.16, by = 0.02),
-    xlim = c(10, 25), ylim = c(10,25), add = TRUE, lty = "solid")
-  legend(x = 10, y = 15, legend = c(expression(rho[12] == 0.45), expression(rho[12] == 0.29)),
-    lty = c("solid", "dotted"), bty = "n")
-
-
-#####################################################################
-# Two variables - Simulate data and compare to what we expected
-
-  mu <- c(15, 20)
-  sigma <- matrix(data = c(1, 0.5, 0.5, 1.25), nrow = 2, ncol = 2, byrow = TRUE)
-  cov2cor(sigma)
-  N <- 20
-  
-  set.seed(7812) # Set a "seed number" so that I can reproduce the exact same sample
-  x <- rmvnorm(n = N, mean = mu, sigma = sigma)
-  x
-
-  mu.hat <- colMeans(x)
-  sigma.hat <- cov(x)
-  R <- cor(x)
-  mu.hat
-  sigma.hat
-  R
-
-  x1 <- seq(from = 10, to = 25, by = 0.1)
-  x2 <- seq(from = 10, to = 25, by = 0.1)
-  all.x <- expand.grid(x1, x2)
-  eval.fx <- dmvnorm(x = all.x, mean = mu, sigma = sigma)
-  fx <- matrix(data = eval.fx, nrow = length(x1), ncol = length(x2), byrow = FALSE)
-
-  par(pty = "s")
-  contour(x = x1, y = x2, z = fx, main = "Multivariate normal contour plot with a sample",
-    xlab = expression(x[1]), ylab = expression(x[2]), xlim = c(10,20), ylim = c(15, 25),
-    levels = c(0.001, seq(from = 0.02, to = 0.14, by = 0.02)))
-  points(x = x[,1], y = x[,2], col = "red", lwd = 2)
-
-  # Density estimate
-  library(MASS)
-  fx.hat <- kde2d(x = x[,1], y = x[,2])
-  # fx.hat$x
-  # fx.hat$y
-  # fx.hat$z #Matrix of estimated f(x) values for a grid of x-axis and y-axis values
-  persp3d(x = fx.hat$x, y = fx.hat$y, z = fx.hat$z, col = "orange", xlab = "x1",
-    ylab = "x2", zlab = "f(x)", xlim = c(10, 25), ylim = c(10,25), zlim = c(0, 0.16))
-  # Put actual density on plot too
-  persp3d(x = x1, y = x2, z = fx, col = "green", xlab = "x1",
-    ylab = "x2", zlab = "f(x)", xlim = c(10, 25), ylim = c(10,25), zlim = c(0, 0.16), add = TRUE)
-
-  # Contour plot
-  contour(x = fx.hat$x, y = fx.hat$y, z = fx.hat$z, main = "Estimated contours for density",
-    xlab = expression(x[1]), ylab = expression(x[2]), xlim = c(10,20), ylim = c(15, 25),
-    levels = seq(from = 0.02, to = 0.14, by = 0.02), col = "darkorange")
-  # Use the code below to add the actual multivariate normal density
-  contour(x = x1, y = x2, z = fx, main = "Estimated contours for density",
-    xlab = expression(x[1]), ylab = expression(x[2]), xlim = c(10,20), ylim = c(15, 25),
-    levels = c(seq(from = 0.02, to = 0.14, by = 0.02)), add = TRUE)
-
-
-  # 3D histogram function (no documentation in rgl):
-  # hist3d(x = x[,1], y = x[,2], nclass = 40)
-
-
-#####################################################################
-# Two variables - Show eigenvectors on contour plot
-
-  mu <- c(15, 20)
-  sigma <- matrix(data = c(1, 0.5, 0.5, 1.25), nrow = 2, ncol = 2, byrow = TRUE)
-  # sigma<-matrix(data = c(1, 0.5, 0.5, 0.26), nrow = 2, ncol = 2, byrow = TRUE)
-
-  x1 <- seq(from = 10, to = 25, by = 0.1)
-  x2 <- seq(from = 10, to = 25, by = 0.1)
-  all.x <- expand.grid(x1, x2) # Creates all possible combinations
-  eval.fx <- dmvnorm(x = all.x, mean = mu, sigma = sigma)
-  fx <- matrix(data = eval.fx, nrow = length(x1), ncol = length(x2), byrow = FALSE)
-
-  par(pty = "s")
-  contour(x = x1, y = x2, z = fx,
-    main = expression(paste("Multivariate normal contour plot with eigenvectors for ", Sigma)),
-    xlab = expression(x[1]), ylab = expression(x[2]), xlim = c(-10,30), ylim = c(-10, 30),
-    levels = c(0.01, 0.001))
-  # panel.first = grid() does not work quite right so use abline()
-  abline(h = seq(from = -10, to = 30, by = 10), lty = "dotted", col = "lightgray")
-  abline(v = seq(from = -10, to = 30, by = 10), lty = "dotted", col = "lightgray")
-
-  # Put in lines at x1 = 0 and x2 = 0
-  abline(h = 0, lwd = 2)
-  abline(v = 0, lwd = 2)
-
-
-  save.eig <- eigen(sigma)
-  save.eig$values
-  save.eig$vectors
-
-  arrows(x0 = 0, y0 = 0, x1 = 10*save.eig$vectors[1,1], y1 = 10*save.eig$vectors[2,1], col = "red",
-         lty = "solid")
-  arrows(x0 = 0, y0 = 0, x1 = 10*save.eig$vectors[1,2], y1 = 10*save.eig$vectors[2,2], col = "red",
-         lty = "solid")
-
-
-
-
-#
+# Interpretation:
+# Elliptical shapes reflect covariance structure
