@@ -1,4 +1,19 @@
 # RSH7033 – Applied Multivariate Statistics
+## Repository Structure
+
+RSH7033_Applied_Multivariate_Statistics/
+│
+├── setup/
+├── data/
+├── week01_foundations/
+├── week02_distributions_correlation/
+├── week03_multivariate_inference/
+├── week04_manova_regression/
+├── week05_pca/
+├── week06_classification/
+├── week07_clustering/
+├── week08_project/
+└── README.md
 
 ## Structure
 
