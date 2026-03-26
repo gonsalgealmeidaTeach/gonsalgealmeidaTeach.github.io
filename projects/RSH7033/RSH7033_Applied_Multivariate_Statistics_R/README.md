@@ -1,6 +1,6 @@
 # RSH7033 – Applied Multivariate Statistics
 ## Repository Structure
-
+```
 RSH7033_Applied_Multivariate_Statistics/
 │
 ├── setup/
@@ -14,7 +14,7 @@ RSH7033_Applied_Multivariate_Statistics/
 ├── week07_clustering/
 ├── week08_project/
 └── README.md
-
+```
 ## Structure
 
 - Each folder corresponds to a weekly module
