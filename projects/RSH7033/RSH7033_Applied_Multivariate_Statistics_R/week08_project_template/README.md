@@ -19,3 +19,10 @@ This project integrates multivariate statistical methods:
 - Portfolio weights
 - Risk-return profile
 - Multivariate insights for decision-making
+
+  IMPORTANT:
+
+1. Run session08_generate_portfolio_data.R FIRST
+2. This creates the dataset required for Week 8
+3. Do NOT modify file paths
+4. Ensure internet connection for initial download
